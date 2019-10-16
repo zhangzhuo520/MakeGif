@@ -1,0 +1,14 @@
+#include "mainwidget.h"
+#include <QApplication>
+#include "deftools/appinit.h"
+#include "property.h"
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    tools::AppInit *initApp = new  tools::AppInit;
+    initApp->loadInfo();
+    MainWidget w;
+    w.show();
+
+    return a.exec();
+}
