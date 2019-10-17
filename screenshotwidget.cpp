@@ -7,6 +7,13 @@
 #include <QRegion>
 #include <QDebug>
 #include <QPainterPath>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QScreen>
+#include <QWindow>
+#include <QDateTime>
+#include <QStandardPaths>
+#include "screenshotbar.h"
 ScreenShotWidgetPrivate::ScreenShotWidgetPrivate(ScreenShotWidget *widget, QWidget *parent):
     q_ptr(widget),
     m_main_widget(dynamic_cast<MainWidget *> (parent)),
@@ -15,7 +22,6 @@ ScreenShotWidgetPrivate::ScreenShotWidgetPrivate(ScreenShotWidget *widget, QWidg
     m_cut_area(0,  0,  0, 0),
     m_mouse_pos(0, 0)
 {
-
 }
 
 ScreenShotWidgetPrivate::~ScreenShotWidgetPrivate()
@@ -28,6 +34,9 @@ void ScreenShotWidgetPrivate::init()
     Q_Q(ScreenShotWidget);
     q->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint);
     q->setAttribute(Qt::WA_TranslucentBackground);
+    m_screenshot_bar = new ScreenShotBar(q);
+    m_screenshot_bar->hide();
+
 }
 
 
@@ -36,11 +45,25 @@ ScreenShotWidget::ScreenShotWidget(QWidget *parent):
 {
     Q_D(ScreenShotWidget);
     d->init();
+    connect(d->m_screenshot_bar, SIGNAL(signal_ok_btnclick()), this, SLOT(slot_area_cut_done()));
+    connect(d->m_screenshot_bar, SIGNAL(signal_cancel_btnclick()), this, SLOT(close()));
 }
 
 ScreenShotWidget::~ScreenShotWidget()
 {
 
+}
+
+void ScreenShotWidget::slot_area_cut_done()
+{
+    Q_D(ScreenShotWidget);
+    d->m_screen = windowHandle()->screen();
+    QPixmap pic = d->m_screen->grabWindow(QApplication::desktop()->winId(),  d->m_cut_area.left(), d->m_cut_area.top(), d->m_cut_area.width(), d->m_cut_area.height());
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "/" + QDateTime::currentDateTime() .toString("yyyy-MM-dd-hh-mm-ss") + ".png";
+    pic.save(path,  "PNG");
+    qDebug() << "save image :" << path;
+    close();
+    d->m_cut_area.setRect(0, 0, 0, 0);
 }
 
 void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
@@ -70,6 +93,12 @@ void ScreenShotWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_D(ScreenShotWidget);
     d->m_mouse_press = false;
+    if(d->m_cut_done)
+    {
+        QPoint point(d->m_cut_area.right() - d->m_screenshot_bar->width(), d->m_cut_area.bottom() + 2);
+        d->m_screenshot_bar->move(point);
+        d->m_screenshot_bar->show();
+    }
     update();
     QWidget::mouseReleaseEvent(event);
 }

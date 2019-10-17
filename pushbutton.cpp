@@ -5,6 +5,18 @@ PushButton::PushButton(QWidget *parent):
 {
 }
 
+PushButton::PushButton(const QString &text, QWidget *parent):
+    QPushButton(text, parent)
+{
+
+}
+
+PushButton::PushButton(const QIcon &icon, const QString &text, QWidget *parent):
+        QPushButton(icon, text, parent)
+{
+
+}
+
 PushButton::~PushButton()
 {
 

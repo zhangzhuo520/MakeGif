@@ -5,6 +5,8 @@
 class ScreenShotWidget;
 class MainWidget;
 class QLabel;
+class ScreenShotBar;
+class QScreen;
 class ScreenShotWidgetPrivate
 {
     Q_DECLARE_PUBLIC(ScreenShotWidget)
@@ -16,6 +18,8 @@ public:
 
     ScreenShotWidget *q_ptr;
     MainWidget *m_main_widget;
+    ScreenShotBar *m_screenshot_bar;
+    QScreen *m_screen;
     QLabel *m_label;
     bool m_mouse_press;
     bool m_cut_done;

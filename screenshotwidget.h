@@ -14,6 +14,9 @@ public:
     explicit ScreenShotWidget(QWidget *paren = nullptr);
     ~ScreenShotWidget();
 
+public slots:
+    void slot_area_cut_done();
+
 protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);

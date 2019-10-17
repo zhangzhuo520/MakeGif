@@ -31,7 +31,9 @@ SOURCES += \
         property.cpp \
     pushbutton.cpp \
     screenshotwidget.cpp \
-    recordgifwidget.cpp
+    recordgifwidget.cpp \
+    screenshotbar.cpp \
+    gifwidget.cpp
 
 HEADERS += \
         mainwidget.h \
@@ -42,7 +44,10 @@ HEADERS += \
     screenshotwidget.h\
     screenshotwidget_p.h \
     recordgifwidget.h \
-    recordgifwidget_p.h
+    recordgifwidget_p.h \
+    screenshotbar.h \
+    gif.h \
+    gifwidget.h
 
 RESOURCES += \
     images.qrc
