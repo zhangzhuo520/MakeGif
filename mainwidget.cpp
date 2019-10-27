@@ -5,15 +5,18 @@
 #include "deftools/appinit.h"
 #include "pushbutton.h"
 #include "screenshotwidget.h"
+#include "recordgifwidget.h"
+#include "gifbar.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QApplication>
 #include <QKeyEvent>
 #include <QString>
-//#include <QDebug>  // must add qdebug module， or setProperty will be mistake
+#include <QDebug>  // must add qdebug module， or setProperty will be mistake
 
 MainWidgetPrivate::MainWidgetPrivate(MainWidget *widget):
-    q_ptr(widget)
+    q_ptr(widget),
+    m_record_mode(NONE)
 {
 
 }
@@ -48,6 +51,11 @@ void MainWidgetPrivate::initUi()
 
     m_screenshot_widget = new ScreenShotWidget(q);
     m_screenshot_widget->hide();
+
+    m_recordgif_widget = new RecordGifWidget(q);
+    m_recordgif_widget->resize(800, 600);
+    m_recordgif_widget->move(300, 300);
+    m_recordgif_widget->hide();
 }
 
 
@@ -77,7 +85,8 @@ void MainWidget::slot_screen_shot()
 
 void MainWidget::slot_record_gif()
 {
-
+    Q_D(MainWidget);
+    d->m_recordgif_widget->show();
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)

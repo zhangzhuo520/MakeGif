@@ -15,9 +15,9 @@ protected:
 private:
     int m_width;
     int m_height;
-   QColor m_start_color;
-   QColor m_center_color;
-   QColor m_end_color;
+    QColor m_start_color;
+    QColor m_center_color;
+    QColor m_end_color;
 };
 
 #endif // IMAGELABEL_H

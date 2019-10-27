@@ -33,7 +33,9 @@ SOURCES += \
     screenshotwidget.cpp \
     recordgifwidget.cpp \
     screenshotbar.cpp \
-    gifwidget.cpp
+    gifwidget.cpp \
+    gifbar.cpp \
+    gifrecordthread.cpp
 
 HEADERS += \
         mainwidget.h \
@@ -47,7 +49,9 @@ HEADERS += \
     recordgifwidget_p.h \
     screenshotbar.h \
     gif.h \
-    gifwidget.h
+    gifwidget.h \
+    gifbar.h \
+    gifrecordthread.h
 
 RESOURCES += \
     images.qrc

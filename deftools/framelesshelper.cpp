@@ -246,7 +246,8 @@ void WidgetData::handleMousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         m_bLeftButtonPressed = true;
-        m_bLeftButtonTitlePressed = event->pos().y() < m_moveMousePos.m_nTitleHeight;
+        //m_bLeftButtonTitlePressed = event->pos().y() < m_moveMousePos.m_nTitleHeight;
+        m_bLeftButtonTitlePressed = (event->pos().y() < m_pWidget->height()) && (event->pos().y() > m_pWidget->height() - 50);
 
         QRect frameRect = m_pWidget->frameGeometry();
         m_pressedMousePos.recalculate(event->globalPos(), frameRect);

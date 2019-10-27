@@ -1,32 +1,34 @@
 #ifndef RECORDGIFWIDGET_H
 #define RECORDGIFWIDGET_H
-#include <QWidget>
+#include <QDialog>
 class RecordGifWidgetPrivate;
 class RecordGifWidget : public QWidget
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(RecordGifWidget)
-    Q_PROPERTY(int borderWidth READ getBorderWidth WRITE setBorderWidth)
-    Q_PROPERTY(QColor bgColor READ getBgColor WRITE setBgColor)
 public:
     explicit RecordGifWidget(QWidget *parent  = nullptr);
     ~RecordGifWidget();
+    QRect recordRect();
 
+public slots:
+    void slotStartRecord();
+    void slotPauseRecord();
+    void slotStopRecord();
 
-    static GifWidget *Instance();
-    explicit GifWidget(QWidget *parent = 0);
-
-public Q_SLOTS:
-    void setBorderWidth(int borderWidth);
-    void setBgColor(const QColor &bgColor);
+    void slot
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
     void resizeEvent(QResizeEvent *);
     void paintEvent(QPaintEvent *);
+    void enterEvent(QEvent *);
+    void leaveEvent(QEvent *);
+    void showEvent(QShowEvent *);
 
 private:
+    void regeomtry();
     RecordGifWidgetPrivate *d_ptr;
 };
-
+#endif
 

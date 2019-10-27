@@ -109,8 +109,8 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setPen(QColor(0, 0, 0, 0));
     painter.setBrush(QColor(255, 255, 255, 100));
-   QPainterPath rect_path;
-   rect_path.addRect(QRect(0, 0, width(), height()));
+    QPainterPath rect_path;
+    rect_path.addRect(QRect(0, 0, width(), height()));
     if(d->m_mouse_press || d->m_cut_done)
     {
         QPainterPath temp_path;

@@ -116,6 +116,7 @@ public:
     void setBorderWidth(uint width);
     // 设置标题栏高度
     void setTitleHeight(uint height);
+
     bool widgetResizable();
     bool widgetMovable();
     bool rubberBandOnMove();
