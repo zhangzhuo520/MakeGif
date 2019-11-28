@@ -4,9 +4,9 @@
 #include "pushbutton.h"
 #include "deftools/appinit.h"
 #include "pushbutton.h"
-#include "screenshotwidget.h"
-#include "recordgifwidget.h"
-#include "gifbar.h"
+#include "screenshot/screenshotwidget.h"
+#include "recordgif/recordgifwidget.h"
+#include "recordgif/gifbar.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QApplication>
@@ -49,9 +49,6 @@ void MainWidgetPrivate::initUi()
     hlayout->addWidget(m_recordgif_btn);
     q->setLayout(hlayout);
 
-    m_screenshot_widget = new ScreenShotWidget(q);
-    m_screenshot_widget->hide();
-
     m_recordgif_widget = new RecordGifWidget(q);
     m_recordgif_widget->resize(800, 600);
     m_recordgif_widget->move(300, 300);
@@ -80,6 +77,7 @@ MainWidget::~MainWidget()
 void MainWidget::slot_screen_shot()
 {
     Q_D(MainWidget);
+    d->m_screenshot_widget = new ScreenShotWidget(this);
     d->m_screenshot_widget->showFullScreen();
 }
 

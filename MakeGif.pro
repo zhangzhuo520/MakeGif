@@ -23,35 +23,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 include(deftools/deftools.pri)
+include(screenshot/screenshot.pri)
+include(recordgif/recordgif.pri)
 
 SOURCES += \
         main.cpp \
         mainwidget.cpp \
         imagelabel.cpp \
-        property.cpp \
-    pushbutton.cpp \
-    screenshotwidget.cpp \
-    recordgifwidget.cpp \
-    screenshotbar.cpp \
-    gifwidget.cpp \
-    gifbar.cpp \
-    gifrecordthread.cpp
+        pushbutton.cpp \
 
 HEADERS += \
         mainwidget.h \
         imagelabel.h \
-    mainwidget_p.h \
-    property.h \
-    pushbutton.h \
-    screenshotwidget.h\
-    screenshotwidget_p.h \
-    recordgifwidget.h \
-    recordgifwidget_p.h \
-    screenshotbar.h \
-    gif.h \
-    gifwidget.h \
-    gifbar.h \
-    gifrecordthread.h
+        mainwidget_p.h \
+        pushbutton.h \
 
 RESOURCES += \
     images.qrc

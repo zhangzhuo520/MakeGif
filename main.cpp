@@ -1,7 +1,6 @@
 #include "mainwidget.h"
 #include <QApplication>
 #include "deftools/appinit.h"
-#include "property.h"
 
 /**************GifCutter********************/
 int main(int argc, char *argv[])
