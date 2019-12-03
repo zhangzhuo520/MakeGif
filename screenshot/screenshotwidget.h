@@ -19,6 +19,8 @@ public:
     bool getCurrentWindowFromCursor(QRect &out_rect);
 
     bool getSmallestWindowFromCursor(QRect& out_rect);
+
+    void showPaintPropertyWidget(const QPoint&);
 public slots:
     void slot_area_cut_done();
     void slot_close_cut();

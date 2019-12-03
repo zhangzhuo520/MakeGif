@@ -10,7 +10,9 @@ HEADERS += \
     $$PWD/shaperect.h \
     $$PWD/paintpropertywidget.h \
     $$PWD/colorlabel.h \
-    $$PWD/colormanagerwidget.h
+    $$PWD/colormanagerwidget.h \
+    $$PWD/widthwidget.h \
+    $$PWD/widthlabel.h
 
 SOURCES += \
     $$PWD/colorpicker.cpp \
@@ -21,4 +23,6 @@ SOURCES += \
     $$PWD/shaperect.cpp \
     $$PWD/paintpropertywidget.cpp \
     $$PWD/colorlabel.cpp \
-    $$PWD/colormanagerwidget.cpp
+    $$PWD/colormanagerwidget.cpp \
+    $$PWD/widthwidget.cc \
+    $$PWD/widthlabel.cc

@@ -2,6 +2,7 @@
 #include "screenshotwidget_p.h"
 #include "../mainwidget.h"
 #include "colorpicker.h"
+#include "paintpropertywidget.h"
 #include "markwidget.h"
 #include <windows.h>
 #include <QLabel>
@@ -60,6 +61,10 @@ void ScreenShotWidgetPrivate::initWidget()
     m_color_picker->show();
 
     m_mark_widget = new MarkWidget(m_screen_pixmap);
+
+    m_painter_property_widget = new PaintPropertyWidget(q);
+    m_painter_property_widget->setFixedSize(400, 90);
+    m_painter_property_widget->hide();
 }
 
 QSharedPointer <QPixmap> ScreenShotWidgetPrivate::getScreenPixmap()
@@ -489,6 +494,14 @@ bool ScreenShotWidget::getSmallestWindowFromCursor(QRect& out_rect)
         return true;
     }
     return false;
+}
+
+void ScreenShotWidget::showPaintPropertyWidget(const QPoint& point)
+{
+    Q_D(ScreenShotWidget);
+    QPoint pos(point.x(), point.y() + 20);
+    d->m_painter_property_widget->move(pos);
+    d->m_painter_property_widget->show();
 }
 
 bool ScreenShotWidget::getCurrentWindowFromCursor(QRect &out_rect)

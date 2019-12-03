@@ -10,6 +10,7 @@ class ScreenShotBar;
 class QScreen;
 class ColorPicker;
 class MarkWidget;
+class PaintPropertyWidget;
 class ScreenShotWidgetPrivate
 {
     Q_DECLARE_PUBLIC(ScreenShotWidget)
@@ -48,6 +49,9 @@ public:
     ScreenShotWidget *q_ptr;
     MainWidget *m_main_widget;
     ScreenShotBar *m_screenshot_bar;
+
+    PaintPropertyWidget *m_painter_property_widget;
+
     QLabel *m_label;
     bool m_mouse_press;
     CutState m_cut_state;

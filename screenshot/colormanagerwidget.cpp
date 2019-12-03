@@ -1,7 +1,33 @@
 #include "colormanagerwidget.h"
 #include "colorlabel.h"
 #include <QHBoxLayout>
-ColorManagerWidget::ColorManagerWidget(QWidget *paren)
+#include <QPainter>
+#include <QPen>
+#include <QBrush>
+#include <QColor>
+ColorManagerWidget::ColorManagerWidget(QWidget *paren):
+    QWidget(paren)
+{
+    initColorList();
+    initColorLabel();
+}
+
+void ColorManagerWidget::initColorLabel()
+{
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setMargin(8);
+    layout->setSpacing(6);
+    for(int i = 0; i < 10; i ++)
+    {
+        ColorLabel *label = new ColorLabel(this, m_color_list.at(i));
+        connect(label, SIGNAL(signalSelectColor(QColor)), this, SLOT(slotSelectColor(QColor)));
+        m_colorlabel_list.append(label);
+        layout->addWidget(label);
+    }
+    setLayout(layout);
+}
+
+void ColorManagerWidget::initColorList()
 {
     m_color_list  << QColor(0, 0, 0)
                    << QColor(51, 51, 51)
@@ -67,21 +93,21 @@ ColorManagerWidget::ColorManagerWidget(QWidget *paren)
                    << QColor(71, 17, 48);
 }
 
-void ColorManagerWidget::initColorLabel()
-{
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->setMargin(2);
-    layout->setSpacing(0);
-    for(int i = 0; i < 10; i ++)
-    {
-        m_colorlabel_list.append(new ColorLabel(this, m_colorlabel_list.at(i)));
-        connect(m_colorlabel_list[i], SIGNAL(signalSelectColor(QColor)), this, SLOT(slotSelectColor(QColor)));
-        layout->addWidget(m_colorlabel_list[i]);
-    }
-    setLayout(layout);
-}
-
 ColorManagerWidget::~ColorManagerWidget()
 {
 
+}
+
+void ColorManagerWidget::slotSelectColor(QColor)
+{
+
+}
+
+void ColorManagerWidget::paintEvent(QPaintEvent *)
+{
+//    QPainter painter(this);
+//    painter.setRenderHint(QPainter::Antialiasing);
+//    painter.setPen(Qt::NoPen);
+//    painter.setBrush(QColor(255, 255, 255, 200));
+//    painter.drawRect(rect());
 }

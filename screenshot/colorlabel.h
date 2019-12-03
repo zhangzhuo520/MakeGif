@@ -6,6 +6,7 @@
 class QPaintEvent;
 class ColorLabel : public QLabel
 {
+    Q_OBJECT
 public:
    explicit  ColorLabel(QWidget *parent,  const QColor & color);
     ~ColorLabel();

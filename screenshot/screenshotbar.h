@@ -6,7 +6,7 @@
 class PushButton;
 class QPaintEvent;
 class QEvent;
-
+class ScreenShotWidget;
 class ScreenShotBar : public QWidget
 {
     Q_OBJECT
@@ -25,6 +25,9 @@ signals:
     void signal_cancel_btnclick();
     void signal_paint_property(PaintProperty);
 
+public slots:
+    void slotShowPropertyWidget();
+
 private:
     PushButton *m_line_btn;
     PushButton *m_arrow_btn;
@@ -32,6 +35,7 @@ private:
     PushButton *m_ok_btn;
     PushButton *m_cancel_btn;
     PaintProperty m_paint_property;
+    ScreenShotWidget *m_screen_widget;
     bool m_enter;
 };
 

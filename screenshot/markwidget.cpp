@@ -41,17 +41,17 @@ void MarkWidget::handleEvent(QEvent *event)
 
 void MarkWidget::mousePressEvent(QMouseEvent *event)
 {
-    qDebug() << "press: " << event->pos();
+//    qDebug() << "press: " << event->pos();
 }
 
 void MarkWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    qDebug() << "release: " << event->pos();
+//    qDebug() << "release: " << event->pos();
 }
 
 void MarkWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    qDebug() << "move: " << event->pos();
+//    qDebug() << "move: " << event->pos();
 }
 
 //void MarkWidget::drawArrows(const QPoint& startPoint, const QPoint& endPoint, QPainter &paiter)
