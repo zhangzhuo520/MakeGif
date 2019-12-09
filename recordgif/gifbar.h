@@ -1,6 +1,6 @@
 #ifndef GIFBAR_H
 #define GIFBAR_H
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <QSize>
 class QPushButton;
 class QPaintEvent;

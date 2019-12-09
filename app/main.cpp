@@ -1,6 +1,6 @@
 #include "mainwidget.h"
-#include <QApplication>
-#include "deftools/appinit.h"
+#include <QtWidgets/QApplication>
+#include "../deftools/appinit.h"
 
 /**************GifCutter********************/
 int main(int argc, char *argv[])

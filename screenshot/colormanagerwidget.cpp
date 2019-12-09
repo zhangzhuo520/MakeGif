@@ -5,6 +5,7 @@
 #include <QPen>
 #include <QBrush>
 #include <QColor>
+#include <QDebug>
 ColorManagerWidget::ColorManagerWidget(QWidget *paren):
     QWidget(paren)
 {
@@ -93,6 +94,15 @@ void ColorManagerWidget::initColorList()
                    << QColor(71, 17, 48);
 }
 
+void ColorManagerWidget::mutexSelection(ColorLabel* label)
+{
+    foreach (ColorLabel * itor, m_colorlabel_list)
+    {
+        if(label != itor)
+            itor->setSelect(false);
+    }
+}
+
 ColorManagerWidget::~ColorManagerWidget()
 {
 
@@ -100,5 +110,7 @@ ColorManagerWidget::~ColorManagerWidget()
 
 void ColorManagerWidget::slot_select_color(QColor color)
 {
+    ColorLabel *label = dynamic_cast <ColorLabel *> (sender());
+    mutexSelection(label);
     emit signal_select_color(color);
 }

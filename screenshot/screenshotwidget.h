@@ -1,6 +1,6 @@
 #ifndef SCREENSHOTWIDGET_H
 #define SCREENSHOTWIDGET_H
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include "screenshotwidget_p.h"
 class MainWidget;
 class ScreenShotWidgetPrivate;
@@ -21,6 +21,8 @@ public:
     bool getSmallestWindowFromCursor(QRect& out_rect);
 
     void showPaintPropertyWidget(const QPoint&);
+
+    PaintPropertyWidget *getPropertyWidget();
 public slots:
     void slot_area_cut_done();
     void slot_close_cut();

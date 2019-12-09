@@ -1,9 +1,10 @@
 #ifndef PUSHBUTTON_H
 #define PUSHBUTTON_H
-#include <QPushButton>
+#include <QtWidgets/QPushButton>
 
 class PushButton : public QPushButton
 {
+    Q_OBJECT
 public:
    explicit  PushButton(QWidget *parent = Q_NULLPTR);
    explicit PushButton(const QString &text, QWidget *parent = Q_NULLPTR);

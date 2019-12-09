@@ -13,7 +13,7 @@ class ScreenShotBar : public QWidget
 public:
     explicit ScreenShotBar(QWidget *parent = nullptr);
     ~ScreenShotBar();
-
+    typedef QList <PaintProperty *> PPropertyList;
     void initUi();
 
     virtual void paintEvent(QPaintEvent *);
@@ -34,7 +34,7 @@ private:
     PushButton *m_box_btn;
     PushButton *m_ok_btn;
     PushButton *m_cancel_btn;
-    PaintProperty m_paint_property;
+    PPropertyList m_property_list;
     ScreenShotWidget *m_screen_widget;
     bool m_enter;
 };

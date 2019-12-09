@@ -2,14 +2,14 @@
 #include "mainwidget_p.h"
 #include "imagelabel.h"
 #include "pushbutton.h"
-#include "deftools/appinit.h"
+#include "../deftools/appinit.h"
 #include "pushbutton.h"
-#include "screenshot/screenshotwidget.h"
-#include "recordgif/recordgifwidget.h"
-#include "recordgif/gifbar.h"
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QApplication>
+#include "../screenshot/screenshotwidget.h"
+#include "../recordgif/recordgifwidget.h"
+#include "../recordgif/gifbar.h"
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QApplication>
 #include <QKeyEvent>
 #include <QString>
 #include <QDebug>  // must add qdebug module， or setProperty will be mistake
@@ -87,8 +87,8 @@ void MainWidget::slot_record_gif()
     d->m_recordgif_widget->show();
 }
 
-void MainWidget::keyPressEvent(QKeyEvent *event)
-{
+//void MainWidget::keyPressEvent(QKeyEvent *event)
+//{
 
-}
+//}
 

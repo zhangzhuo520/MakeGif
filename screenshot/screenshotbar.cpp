@@ -2,6 +2,7 @@
 #include <QLabel>
 #include "pushbutton.h"
 #include "screenshotwidget.h"
+#include "paintpropertywidget.h"
 #include <QHBoxLayout>
 #include <QPainter>
 #include <QDebug>
@@ -12,6 +13,10 @@ ScreenShotBar::ScreenShotBar(QWidget *parent):
     m_screen_widget(dynamic_cast <ScreenShotWidget *>(parent))
 {
     initUi();
+    m_property_list << new PaintProperty(LINE, Qt::black, 1)
+                    << new PaintProperty(ARROW, Qt::black, 1)
+                    << new PaintProperty(BOX, Qt::black, 1);
+
 }
 
 ScreenShotBar::~ScreenShotBar()
@@ -72,6 +77,20 @@ bool ScreenShotBar::mouseEnter()
 void ScreenShotBar::slotShowPropertyWidget()
 {
     PushButton *btn = dynamic_cast <PushButton *> (sender());
+    switch (btn->objectName()) {
+    case "Line":
+        m_property_list
+        m_screen_widget->getPropertyWidget()->setPaintProperty();
+        break;
+    case "Box":
+
+        break;
+    case "Arrow":
+
+        break;
+    default:
+        break;
+    }
     m_screen_widget->showPaintPropertyWidget(mapToGlobal(btn->pos()));
     PaintProperty pproperty;
     if(btn->objectName()  == "Line")

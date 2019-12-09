@@ -1,5 +1,5 @@
 #include "pushbutton.h"
-#include <QSizePolicy>
+#include <QtWidgets/QSizePolicy>
 PushButton::PushButton(QWidget *parent):
     QPushButton(parent)
 {

@@ -521,6 +521,12 @@ void ScreenShotWidget::showPaintPropertyWidget(const QPoint& point)
     d->m_painter_property_widget->show();
 }
 
+PaintPropertyWidget *ScreenShotWidget::getPropertyWidget()
+{
+    Q_D(ScreenShotWidget);
+    return d->m_painter_property_widget;
+}
+
 bool ScreenShotWidget::getCurrentWindowFromCursor(QRect &out_rect)
 {
     HWND hwnd;

@@ -20,6 +20,8 @@ void WidthLabel::setSelect(bool flag)
     m_select = flag;
     m_color = Qt::gray;
     update();
+    if(m_select)
+        emit signalSelectChange();
 }
 
 bool WidthLabel::select()

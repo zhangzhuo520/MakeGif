@@ -1,10 +1,11 @@
 #ifndef IMAGELABEL_H
 #define IMAGELABEL_H
-#include <QLabel>
+#include <QtWidgets/QLabel>
 #include <QColor>
 class QPaintEvent;
 class ImageLabel : public QLabel
 {
+    Q_OBJECT
 public:
     explicit ImageLabel(QWidget *parent  = nullptr);
     ~ImageLabel();

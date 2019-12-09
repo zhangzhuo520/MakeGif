@@ -1,6 +1,6 @@
 #ifndef RECORDGIFWIDGET_H
 #define RECORDGIFWIDGET_H
-#include <QDialog>
+#include <QtWidgets/QWidget>
 class RecordGifWidgetPrivate;
 class RecordGifWidget : public QWidget
 {

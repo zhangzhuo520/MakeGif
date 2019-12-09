@@ -19,13 +19,24 @@ typedef struct paintproperty
         color(Qt::black),
         width(1)
     {}
-    ~paintproperty(){}
 
-    paintproperty& operator =( const struct paintproperty & obj)
+    paintproperty(const paintproperty & property)
     {
-        this->paint_type = obj.paint_type;
-        this->color = obj.color;
-        this->width = obj.width;
+        color = property.color;
+        width = property.width;
+        paint_type = property.paint_type;
+    }
+
+    paintproperty(const PaintType& t, const QColor& c,  int w):
+        paint_type(t),
+        color(c),
+        width(w){}
+
+    paintproperty& operator=(const paintproperty& p)
+    {
+        this->color = p.color;
+        this->paint_type = p.paint_type;
+        this->width = p.width;
         return *this;
     }
 
@@ -33,6 +44,13 @@ typedef struct paintproperty
     QColor color;
     int width;
 }PaintProperty;
+
+class PaintPropertyList : public QList <PaintProperty *>
+{
+public:
+    PaintPropertyList();
+    ~PaintPropertyList();
+};
 
 Q_DECLARE_METATYPE(PaintProperty)
 

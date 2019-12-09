@@ -1,6 +1,6 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
-#include <QWidget>
+#include <QtWidgets/QWidget>
 
 class MainWidgetPrivate;
 class QKeyEvent;
@@ -17,7 +17,7 @@ public slots:
     void slot_record_gif();
 
 protected:
-    virtual void keyPressEvent(QKeyEvent *event);
+//    virtual void keyPressEvent(QKeyEvent *event);
 
 private:
     MainWidgetPrivate *d_ptr;

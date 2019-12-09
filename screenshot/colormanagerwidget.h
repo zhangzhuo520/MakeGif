@@ -1,6 +1,6 @@
 #ifndef COLORMANAGERWIDGET_H
 #define COLORMANAGERWIDGET_H
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <QList>
 #include <QColor>
 class ColorLabel;
@@ -12,7 +12,7 @@ public:
     explicit ColorManagerWidget(QWidget *paren = nullptr);
     ~ColorManagerWidget();
 
- signals:
+signals:
     void signal_select_color(QColor);
 
 public slots:
@@ -21,6 +21,8 @@ public slots:
 private:
     void initColorLabel();
     void initColorList();
+
+    void mutexSelection(ColorLabel*);
     QList <ColorLabel *> m_colorlabel_list;
     QList <QColor> m_color_list;
 };

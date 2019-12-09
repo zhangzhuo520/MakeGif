@@ -6,7 +6,6 @@ HEADERS += \
     $$PWD/appinit.h \
     $$PWD/framelesshelper.h \
     $$PWD/apphelper.h \
-    $$PWD/screenshotwidget_p.h
 
 SOURCES += \
     $$PWD/app.cpp \
