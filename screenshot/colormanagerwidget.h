@@ -12,11 +12,11 @@ public:
     explicit ColorManagerWidget(QWidget *paren = nullptr);
     ~ColorManagerWidget();
 
-public slots:
-    void slotSelectColor(QColor);
+ signals:
+    void signal_select_color(QColor);
 
-protected:
-    void paintEvent(QPaintEvent*);
+public slots:
+    void slot_select_color(QColor);
 
 private:
     void initColorLabel();

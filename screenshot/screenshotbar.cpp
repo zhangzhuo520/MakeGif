@@ -73,5 +73,26 @@ void ScreenShotBar::slotShowPropertyWidget()
 {
     PushButton *btn = dynamic_cast <PushButton *> (sender());
     m_screen_widget->showPaintPropertyWidget(mapToGlobal(btn->pos()));
+    PaintProperty pproperty;
+    if(btn->objectName()  == "Line")
+    {
+        pproperty.paint_type = LINE;
+        pproperty.color = Qt::red;
+        pproperty.width = 2;
+    }
+    else  if(btn->objectName()  == "Box")
+    {
+        pproperty.paint_type = BOX;
+        pproperty.color = Qt::red;
+        pproperty.width = 2;
+    }
+    else  if(btn->objectName()  =="Arrow")
+    {
+        pproperty.paint_type = ARROW;
+        pproperty.color = Qt::red;
+        pproperty.width = 2;
+    }
+
+    emit signal_paint_property(pproperty);
 }
 

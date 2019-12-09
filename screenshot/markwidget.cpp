@@ -3,11 +3,11 @@
 #include <QDebug>
 #include <QPainter>
 #include <QColor>
+#include "shaperect.h"
 
 MarkWidget::MarkWidget(QSharedPointer <QPixmap> pixmap):
     m_image(pixmap.data()->toImage())
 {
-
 }
 
 MarkWidget::~MarkWidget()
@@ -15,43 +15,76 @@ MarkWidget::~MarkWidget()
 
 }
 
-void MarkWidget::handleEvent(QEvent *event)
+void MarkWidget::set_paint_property(PaintProperty property)
 {
+    m_paint_property = property;
+}
+
+bool MarkWidget::handleEvent(QEvent *event)
+{
+    if(m_paint_property.paint_type == PaintType:: NONE)
+    {
+        return true;
+    }
+
     switch (event->type())
     {
     case QEvent::MouseButtonPress:
     {
         mousePressEvent(dynamic_cast <QMouseEvent *> (event));
-        break;
+        event->accept();
+        return false;
     }
     case QEvent::MouseButtonRelease:
     {
         mouseReleaseEvent(dynamic_cast <QMouseEvent *> (event));
-        break;
+        event->accept();
+        return false;
     }
     case QEvent::MouseMove:
     {
         mouseMoveEvent(dynamic_cast <QMouseEvent *> (event));
-        break;
+        event->accept();
+        return false;
     }
     default:
         break;
     }
+    return true;
 }
 
 void MarkWidget::mousePressEvent(QMouseEvent *event)
 {
-//    qDebug() << "press: " << event->pos();
+    switch (m_paint_property.paint_type) {
+    case BOX:
+        m_shape = new ShapeRect;
+        break;
+    case LINE:
+        m_shape = new ShapeRect;
+        break;
+    case ARROW:
+        m_shape = new ShapeRect;
+        break;
+    case CIRCLE:
+        m_shape = new ShapeRect;
+        break;
+    case TEXT:
+        m_shape = new ShapeRect;
+        break;
+    default:
+        break;
+    }
+    m_shape->mousePressEvent(event);
 }
 
 void MarkWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-//    qDebug() << "release: " << event->pos();
+        m_shape->mouseReleaseEvent(event);
 }
 
 void MarkWidget::mouseMoveEvent(QMouseEvent *event)
 {
-//    qDebug() << "move: " << event->pos();
+    m_shape->mouseMoveEvent(event);
 }
 
 //void MarkWidget::drawArrows(const QPoint& startPoint, const QPoint& endPoint, QPainter &paiter)

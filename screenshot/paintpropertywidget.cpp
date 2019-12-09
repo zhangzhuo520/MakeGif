@@ -20,12 +20,18 @@ PaintPropertyWidget::PaintPropertyWidget(QWidget *parent):
     setWindowFlags(Qt::FramelessWindowHint);
     initShadoweffect();
     initWidgets();
-
+    connect(m_color_widget, SIGNAL(signal_select_color(QColor)), this, SLOT(slot_select_color(QColor)));
+    connect(m_width_widget, SIGNAL(singal_select_width(int)), this, SLOT(slot_select_width(int)));
 }
 
 PaintPropertyWidget::~PaintPropertyWidget()
 {
 
+}
+
+void PaintPropertyWidget::set_paint_property(const PaintProperty & property)
+{
+    m_paint_property = property;
 }
 
 void PaintPropertyWidget::paintEvent(QPaintEvent *)
@@ -46,6 +52,18 @@ void PaintPropertyWidget::paintEvent(QPaintEvent *)
 
     painterPath.addPolygon(trianglePolygon);
     painter.drawPath(painterPath);
+}
+
+void PaintPropertyWidget::slot_select_color(QColor color)
+{
+    m_paint_property.color = color;
+    emit signal_paint_property(m_paint_property);
+}
+
+void PaintPropertyWidget::slot_select_width(int width)
+{
+    m_paint_property.width = width;
+    emit signal_paint_property(m_paint_property);
 }
 
 void PaintPropertyWidget::initShadoweffect()

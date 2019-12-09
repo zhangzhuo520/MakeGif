@@ -13,6 +13,7 @@ public:
     ~WidthLabel();
     void setSelect(bool);
     bool select();
+
 signals:
     void signalSelectChange();
 

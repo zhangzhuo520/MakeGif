@@ -32,19 +32,25 @@ WidthWidget::~WidthWidget()
 
 void WidthWidget::slotSelectChange()
 {
+    int width = 0;
    if(sender()->objectName() == "Thin")
    {
        m_normal_label->setSelect(false);
        m_thick_label->setSelect(false);
+       width = 1;
    }
    else if(sender()->objectName() == "Thick")
    {
        m_normal_label->setSelect(false);
        m_thin_label->setSelect(false);
+       width = 2;
    }
    else if(sender()->objectName() == "Normal")
    {
        m_thin_label->setSelect(false);
        m_thick_label->setSelect(false);
+       width = 3;
    }
+
+   emit singal_select_width(width);
 }

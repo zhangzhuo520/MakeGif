@@ -11,6 +11,9 @@ public:
     void initWidgets();
     ~WidthWidget();
 
+signals:
+    void singal_select_width(int);
+
 public slots:
     void slotSelectChange();
 

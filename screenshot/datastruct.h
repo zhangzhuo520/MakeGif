@@ -14,6 +14,21 @@ enum PaintType
 
 typedef struct paintproperty
 {
+    paintproperty():
+        paint_type(NONE),
+        color(Qt::black),
+        width(1)
+    {}
+    ~paintproperty(){}
+
+    paintproperty& operator =( const struct paintproperty & obj)
+    {
+        this->paint_type = obj.paint_type;
+        this->color = obj.color;
+        this->width = obj.width;
+        return *this;
+    }
+
     PaintType paint_type;
     QColor color;
     int width;

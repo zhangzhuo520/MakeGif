@@ -20,7 +20,7 @@ void ColorManagerWidget::initColorLabel()
     for(int i = 0; i < 10; i ++)
     {
         ColorLabel *label = new ColorLabel(this, m_color_list.at(i));
-        connect(label, SIGNAL(signalSelectColor(QColor)), this, SLOT(slotSelectColor(QColor)));
+        connect(label, SIGNAL(signalSelectColor(QColor)), this, SLOT(slot_select_color(QColor)));
         m_colorlabel_list.append(label);
         layout->addWidget(label);
     }
@@ -98,16 +98,7 @@ ColorManagerWidget::~ColorManagerWidget()
 
 }
 
-void ColorManagerWidget::slotSelectColor(QColor)
+void ColorManagerWidget::slot_select_color(QColor color)
 {
-
-}
-
-void ColorManagerWidget::paintEvent(QPaintEvent *)
-{
-//    QPainter painter(this);
-//    painter.setRenderHint(QPainter::Antialiasing);
-//    painter.setPen(Qt::NoPen);
-//    painter.setBrush(QColor(255, 255, 255, 200));
-//    painter.drawRect(rect());
+    emit signal_select_color(color);
 }

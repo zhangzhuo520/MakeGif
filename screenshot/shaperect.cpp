@@ -33,7 +33,7 @@ ShapeRect::~ShapeRect()
 
 }
 
-void ShapeRect::drawShape(QPainter *)
+void ShapeRect::drawShape(QPainter * painter)
 {
 
 }

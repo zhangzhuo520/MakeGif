@@ -2,6 +2,7 @@
 #define SCREENSHOTWIDGET_P_H
 #include <QObject>
 #include <QRect>
+#include "datastruct.h"
 
 class ScreenShotWidget;
 class MainWidget;
@@ -34,6 +35,8 @@ public:
         ON_RECT,
         NOBORDER
     };
+
+
     explicit ScreenShotWidgetPrivate(ScreenShotWidget *widget = nullptr, QWidget *parent = nullptr);
     ~ScreenShotWidgetPrivate();
 
@@ -61,7 +64,8 @@ public:
     QColor m_mask_color;
     ColorPicker *m_color_picker;
     BorderType m_border_type;
-    MarkWidget *m_mark_widget;
+    MarkWidget *m_mark_widget = nullptr;
+    PaintProperty m_paint_property;
     QSharedPointer <QPixmap> m_screen_pixmap = nullptr;
 };
 

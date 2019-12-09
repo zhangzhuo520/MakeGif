@@ -111,6 +111,8 @@ ScreenShotWidget::ScreenShotWidget(QWidget *parent):
     setAttribute(Qt::WA_DeleteOnClose);
     connect(d->m_screenshot_bar, SIGNAL(signal_ok_btnclick()), this, SLOT(slot_area_cut_done()));
     connect(d->m_screenshot_bar, SIGNAL(signal_cancel_btnclick()), this, SLOT(slot_close_cut()));
+    connect(d->m_screenshot_bar, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_set_property(PaintProperty)));
+    connect(d->m_painter_property_widget, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_set_property(PaintProperty)));
 }
 
 ScreenShotWidget::~ScreenShotWidget()
@@ -194,16 +196,28 @@ void ScreenShotWidget::slot_close_cut()
     close();
 }
 
+void ScreenShotWidget::slot_set_property(PaintProperty property)
+{
+    Q_D(ScreenShotWidget);
+    d->m_paint_property = property;
+    d->m_mark_widget->set_paint_property(property);
+}
+
 bool ScreenShotWidget::event(QEvent *event)
 {
     Q_D(ScreenShotWidget);
-    d->m_mark_widget->handleEvent(event);
-    return QWidget::event(event);
+    if( d->m_mark_widget != nullptr)
+        if(!d->m_mark_widget->handleEvent(event))
+        {
+            return true;
+        }
+    return  QWidget::event(event);
 }
 
 void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
 {
     Q_D(ScreenShotWidget);
+
     QPoint pickerPos(event->pos().x() + 10, event->pos().y() + 25);
     if(event->pos().x() + 10 + d->m_color_picker->width()> QApplication::desktop()->width())
     {
@@ -318,6 +332,7 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
 void ScreenShotWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_D(ScreenShotWidget);
+
     d->m_press_pos = event->pos();
     if(d->m_cut_state == ScreenShotWidgetPrivate::NONE)
     {
@@ -340,6 +355,7 @@ void ScreenShotWidget::mousePressEvent(QMouseEvent *event)
 
 void ScreenShotWidget::mouseReleaseEvent(QMouseEvent *event)
 {
+
     Q_D(ScreenShotWidget);
     d->m_mouse_press = false;
     if(d->m_cut_state == ScreenShotWidgetPrivate::CUT)
@@ -385,6 +401,7 @@ void ScreenShotWidget::mouseReleaseEvent(QMouseEvent *event)
         d->m_screenshot_bar->move(point);
         d->m_screenshot_bar->show();
     }
+
     update();
     QWidget::mouseReleaseEvent(event);
 }
