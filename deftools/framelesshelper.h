@@ -5,6 +5,7 @@
 #include <QBitmap>
 #include <QPainter>
 #include <QWidget>
+#include "deftools_golbal.h"
 namespace tools {
 class WidgetData;
 
@@ -93,7 +94,7 @@ private:
     Qt::WindowFlags m_windowFlags;
 };
 
-class FramelessHelper : public QObject
+class DEFTOOLS_EXPORT FramelessHelper : public QObject
 {
     Q_OBJECT
 

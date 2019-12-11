@@ -14,8 +14,8 @@ public:
 
     virtual ShapeType getType() {return RECT; }
 
+protected:
     virtual void drawShape(QPainter *);
-
     virtual void mouseDoubleClick(QMouseEvent *);
     virtual void mousePressEvent(QMouseEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
@@ -23,6 +23,9 @@ public:
 
 private:
     QRectF m_rect;
+    QPoint m_start_pos;
+    QPoint m_end_pos;
+    bool m_is_pressed;
 };
 
 #endif // SHAPERECT_H

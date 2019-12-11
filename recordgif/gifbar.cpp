@@ -1,5 +1,5 @@
 #include "gifbar.h"
-#include "deftools/appinit.h"
+#include "appinit.h"
 #include <QString>
 #include <QPushButton>
 #include <QHBoxLayout>

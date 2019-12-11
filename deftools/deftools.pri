@@ -6,6 +6,7 @@ HEADERS += \
     $$PWD/appinit.h \
     $$PWD/framelesshelper.h \
     $$PWD/apphelper.h \
+    $$PWD/deftools_golbal.h
 
 SOURCES += \
     $$PWD/app.cpp \

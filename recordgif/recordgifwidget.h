@@ -1,8 +1,9 @@
 #ifndef RECORDGIFWIDGET_H
 #define RECORDGIFWIDGET_H
 #include <QtWidgets/QWidget>
+#include "recordgif_global.h"
 class RecordGifWidgetPrivate;
-class RecordGifWidget : public QWidget
+class RECORDGIF_EXPORT RecordGifWidget : public QWidget
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(RecordGifWidget)

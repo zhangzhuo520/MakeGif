@@ -2,8 +2,9 @@
 #define IMAGELABEL_H
 #include <QtWidgets/QLabel>
 #include <QColor>
+#include "app_global.h"
 class QPaintEvent;
-class ImageLabel : public QLabel
+class APP_EXPORT ImageLabel : public QLabel
 {
     Q_OBJECT
 public:

@@ -1,5 +1,5 @@
 #include "gifrecordthread.h"
-#include "deftools/apphelper.h"
+#include "apphelper.h"
 #include <QStandardPaths>
 #include <QDateTime>
 #include <QTimer>

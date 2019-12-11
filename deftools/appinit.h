@@ -3,10 +3,10 @@
 
 #include <QObject>
 #include <QPoint>
-
+#include "deftools_golbal.h"
 namespace  tools {
 
-class AppInit : public QObject
+class DEFTOOLS_EXPORT AppInit : public QObject
 {
     Q_OBJECT
 public:

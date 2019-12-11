@@ -18,7 +18,7 @@
 
 namespace tools {
 
-class IconHelper : public QObject
+class DEFTOOLS_EXPORT IconHelper : public QObject
 {
 private:
     explicit IconHelper(QObject *parent = 0);

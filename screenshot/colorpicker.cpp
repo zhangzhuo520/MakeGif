@@ -1,6 +1,6 @@
 #include "colorpicker.h"
 #include "colorpicker_p.h"
-#include "deftools/apphelper.h"
+#include "../deftools/apphelper.h"
 
 #include <QMouseEvent>
 #include <QPainter>

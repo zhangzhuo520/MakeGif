@@ -2,11 +2,13 @@
 #define GIFBAR_H
 #include <QtWidgets/QWidget>
 #include <QSize>
+#include "recordgif_global.h"
+
 class QPushButton;
 class QPaintEvent;
 class QLabel;
 class QLineEdit;
-class GifBar : public QWidget
+class RECORDGIF_EXPORT GifBar : public QWidget
 {
     Q_OBJECT
 public:

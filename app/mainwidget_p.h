@@ -1,7 +1,7 @@
 #ifndef MAINWIDGET_P_H
 #define MAINWIDGET_P_H
 #include <QObject>
-
+#include "app_global.h"
 class MainWidget;
 class ImageLabel;
 class PushButton;
@@ -9,7 +9,7 @@ class ScreenShotWidget;
 class RecordGifWidget;
 class ScreenShotBar;
 class GifBar;
-class MainWidgetPrivate:public QObject
+class APP_EXPORT MainWidgetPrivate:public QObject
 {
     Q_OBJECT
     Q_DECLARE_PUBLIC(MainWidget)

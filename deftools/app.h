@@ -1,8 +1,8 @@
 #ifndef APP_H
 #define APP_H
-
+#include "deftools_golbal.h"
 class QString;
-namespace  tools {
+namespace DEFTOOLS_EXPORT tools {
 
 class App
 {

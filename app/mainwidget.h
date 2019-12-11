@@ -1,10 +1,10 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
-#include <QtWidgets/QWidget>
-
+#include <QWidget>
+#include "app_global.h"
 class MainWidgetPrivate;
 class QKeyEvent;
-class MainWidget : public QWidget
+class APP_EXPORT MainWidget : public QWidget
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(MainWidget)

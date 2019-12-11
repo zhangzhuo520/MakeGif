@@ -25,12 +25,11 @@ public:
     virtual ~Shape() {}
     ShapeList getShapeList() const {return m_shape_list;}
 
-protected:
     virtual void drawShape(QPainter *) = 0;
-    virtual void mousePressEvent(QMouseEvent *) = 0;
-    virtual void mouseReleaseEvent(QMouseEvent *) = 0;
-    virtual void mouseMoveEvent(QMouseEvent *) = 0;
-    virtual void mouseDoubleClick(QMouseEvent *) = 0;
+    virtual void mousePressEvent(QMouseEvent *) {}
+    virtual void mouseReleaseEvent(QMouseEvent *) {}
+    virtual void mouseMoveEvent(QMouseEvent *){}
+    virtual void mouseDoubleClick(QMouseEvent *) {}
 
    virtual ShapeType getType() {return NUNE;}
 

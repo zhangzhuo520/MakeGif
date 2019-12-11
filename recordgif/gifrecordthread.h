@@ -5,9 +5,9 @@
 #include <QRect>
 #include <QWaitCondition>
 #include "gif.h"
-
+#include "recordgif_global.h"
 class QTimer;
-class GifRecordThread : public QObject
+class RECORDGIF_EXPORT GifRecordThread : public QObject
 {
     Q_OBJECT
 public:

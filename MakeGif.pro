@@ -1,8 +1,26 @@
-TEMPLATE = subdirs
-CONFIG += ordered
-DEFINES += QT_DEPRECATED_WARNINGS
+TARGET = MakeGif
+TEMPLATE = app
+DESTDIR= bin
 
-SUBDIRS += app\
-screenshot\
-recordgif\
-deftools
+QT     += core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+include(deftools/deftools.pri)
+include(recordgif/recordgif.pri)
+include(screenshot/screenshot.pri)
+
+
+HEADERS += \
+    app/imagelabel.h \
+    app/mainwidget.h \
+    app/mainwidget_p.h \
+    app/pushbutton.h \
+    app/app_global.h
+
+SOURCES += \
+    app/imagelabel.cpp \
+    app/main.cpp \
+    app/mainwidget.cpp \
+    app/pushbutton.cpp
+
+
+

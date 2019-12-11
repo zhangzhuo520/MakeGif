@@ -1,6 +1,6 @@
 #include "recordgifwidget.h"
 #include "recordgifwidget_p.h"
-#include "deftools/framelesshelper.h"
+#include "framelesshelper.h"
 #include "gifrecordthread.h"
 #include "gifbar.h"
 #include <QPainter>
@@ -23,13 +23,13 @@ void RecordGifWidgetPrivate::init()
     q->setWindowFlags(Qt::FramelessWindowHint);
     q->setAttribute(Qt::WA_TranslucentBackground);
     q->move(300, 300);
-    m_frameless_helper = new tools::FramelessHelper(q);
-    m_frameless_helper->activateOn(q);
-    m_frameless_helper->setBorderWidth(5);
-    m_frameless_helper->setWidgetMovable(true);
-    m_frameless_helper->setWidgetResizable(true);
-    m_frameless_helper->setRubberBandOnMove(true);
-    m_frameless_helper->setRubberBandOnResize(true);
+//    m_frameless_helper = new tools::FramelessHelper(q);
+//    m_frameless_helper->activateOn(q);
+//    m_frameless_helper->setBorderWidth(5);
+//    m_frameless_helper->setWidgetMovable(true);
+//    m_frameless_helper->setWidgetResizable(true);
+//    m_frameless_helper->setRubberBandOnMove(true);
+//    m_frameless_helper->setRubberBandOnResize(true);
 
     m_gif_bar = new GifBar(q);
     m_gif_bar->setObjectName("GifBar");

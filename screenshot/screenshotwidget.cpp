@@ -1,6 +1,6 @@
 #include "screenshotwidget.h"
 #include "screenshotwidget_p.h"
-#include "../mainwidget.h"
+#include "../app/mainwidget.h"
 #include "colorpicker.h"
 #include "paintpropertywidget.h"
 #include "markwidget.h"
@@ -111,8 +111,9 @@ ScreenShotWidget::ScreenShotWidget(QWidget *parent):
     setAttribute(Qt::WA_DeleteOnClose);
     connect(d->m_screenshot_bar, SIGNAL(signal_ok_btnclick()), this, SLOT(slot_area_cut_done()));
     connect(d->m_screenshot_bar, SIGNAL(signal_cancel_btnclick()), this, SLOT(slot_close_cut()));
-    connect(d->m_screenshot_bar, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_set_property(PaintProperty)));
-    connect(d->m_painter_property_widget, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_set_property(PaintProperty)));
+    connect(d->m_screenshot_bar, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_screenbar_property(PaintProperty)));
+    connect(d->m_painter_property_widget, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_paint_property(PaintProperty)));
+    connect(d->m_mark_widget, SIGNAL(signalUpdate()), this, SLOT(update()));
 }
 
 ScreenShotWidget::~ScreenShotWidget()
@@ -178,7 +179,7 @@ void ScreenShotWidget::slot_area_cut_done()
 {
     Q_D(ScreenShotWidget);
 //    QPixmap pic = QGuiApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId(),  d->m_cut_area.left(), d->m_cut_area.top(), d->m_cut_area.width(), d->m_cut_area.height());
-    QPixmap pic = d->m_screen_pixmap.data()->copy(d->m_cut_area);
+    QPixmap pic = QPixmap::fromImage(d->m_mark_widget->image());
     QString path = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "/" + QDateTime::currentDateTime() .toString("yyyy-MM-dd-hh-mm-ss") + ".png";
     pic.save(path,  "PNG");
     qDebug() << "save image :" << path;
@@ -196,11 +197,21 @@ void ScreenShotWidget::slot_close_cut()
     close();
 }
 
-void ScreenShotWidget::slot_set_property(PaintProperty property)
+void ScreenShotWidget::slot_screenbar_property(PaintProperty property)
+{
+    Q_D(ScreenShotWidget);
+    d->m_paint_property = property;
+    d->m_painter_property_widget->set_paint_property(property);
+    d->m_mark_widget->set_paint_property(property);
+    d->m_mark_widget->set_cut_area(d->m_cut_area);
+}
+
+void ScreenShotWidget::slot_paint_property(PaintProperty property)
 {
     Q_D(ScreenShotWidget);
     d->m_paint_property = property;
     d->m_mark_widget->set_paint_property(property);
+    d->m_mark_widget->set_cut_area(d->m_cut_area);
 }
 
 bool ScreenShotWidget::event(QEvent *event)
@@ -410,6 +421,7 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
 {
     Q_D(ScreenShotWidget);
     QPainter painter(this);
+
     QPen pen(QColor(0, 0, 0, 0));
     QBrush brush(d->m_mask_color);
     painter.setPen(pen);
@@ -456,6 +468,10 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
     painter.setBrush(brush);
     QString text = QString::number(d->m_cut_area.width()) + " x " +  QString::number(d->m_cut_area.height());
     painter.drawText(d->m_cut_area.left(), d->m_cut_area.top() - 15, text);
+
+    if(d->m_cut_area.width() != 0 && d->m_cut_area.height() != 0 &&
+            d->m_paint_property.paint_type != PaintType::NONE)
+        painter.drawImage(d->m_cut_area, d->m_mark_widget->image());
 
     QWidget::paintEvent(event);
 }

@@ -77,20 +77,6 @@ bool ScreenShotBar::mouseEnter()
 void ScreenShotBar::slotShowPropertyWidget()
 {
     PushButton *btn = dynamic_cast <PushButton *> (sender());
-    switch (btn->objectName()) {
-    case "Line":
-        m_property_list
-        m_screen_widget->getPropertyWidget()->setPaintProperty();
-        break;
-    case "Box":
-
-        break;
-    case "Arrow":
-
-        break;
-    default:
-        break;
-    }
     m_screen_widget->showPaintPropertyWidget(mapToGlobal(btn->pos()));
     PaintProperty pproperty;
     if(btn->objectName()  == "Line")

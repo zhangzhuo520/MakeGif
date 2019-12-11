@@ -1,5 +1,6 @@
 #include "colorlabel.h"
 #include <QPainter>
+
 ColorLabel::ColorLabel(QWidget *parent, const QColor &color):
     QLabel(parent),
     m_color(color),

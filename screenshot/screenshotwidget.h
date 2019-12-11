@@ -26,7 +26,8 @@ public:
 public slots:
     void slot_area_cut_done();
     void slot_close_cut();
-    void slot_set_property(PaintProperty);
+    void slot_screenbar_property(PaintProperty);
+    void slot_paint_property(PaintProperty);
 
 protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;
