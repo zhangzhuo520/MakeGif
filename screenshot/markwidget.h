@@ -34,6 +34,7 @@ signals:
 
 
 private:
+    bool m_drawing;
     QImage m_image;
     QImage m_screen_image;
     PaintProperty m_paint_property;

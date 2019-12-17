@@ -7,6 +7,8 @@ class QPainter;
 class QMouseEvent;
 class Shape
 {
+    typedef QList <Shape *> ShapeList;
+    typedef QList <Shape *>::iterator ShapeIterator;
 public:
     enum ShapeType
     {
@@ -17,9 +19,6 @@ public:
         RECT,
         NUNE
     };
-
-    typedef QList <Shape *> ShapeList;
-    typedef QList <Shape *>::iterator ShapeIterator;
 
     explicit Shape(Shape *);
     virtual ~Shape() {}

@@ -49,7 +49,7 @@ void ShapeRect::mousePressEvent(QMouseEvent * e)
 {
     qDebug() << "mousePressEvent";
     m_is_pressed = true;
-    m_start_pos = e->pos();
+    m_start_pos = m_end_pos = e->pos();
 }
 
 void ShapeRect::mouseMoveEvent(QMouseEvent * e)

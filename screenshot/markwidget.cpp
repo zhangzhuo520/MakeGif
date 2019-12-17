@@ -7,8 +7,11 @@
 #include "shaperect.h"
 
 MarkWidget::MarkWidget(QSharedPointer <QPixmap> pixmap):
-    m_screen_image(pixmap.data()->toImage())
+    m_screen_image(pixmap.data()->toImage()),
+    m_image(pixmap.data()->toImage()),
+    m_drawing(false)
 {
+
 }
 
 MarkWidget::~MarkWidget()
@@ -18,7 +21,10 @@ MarkWidget::~MarkWidget()
 
 QImage MarkWidget::image()
 {
-    return m_screen_image.copy(m_cut_area);
+    if(m_drawing)
+        return m_image.copy(m_cut_area);
+    else
+        return m_screen_image.copy(m_cut_area);
 }
 
 void MarkWidget::set_paint_property(PaintProperty property)
@@ -93,11 +99,13 @@ bool MarkWidget::handleEvent(QEvent *event)
 
 void MarkWidget::mousePressEvent(QMouseEvent *event)
 {
+    m_drawing = true;
     m_shape->mousePressEvent(event);
 }
 
 void MarkWidget::mouseReleaseEvent(QMouseEvent *event)
 {
+    m_drawing = false;
     m_shape->mouseReleaseEvent(event);
 }
 
@@ -108,10 +116,20 @@ void MarkWidget::mouseMoveEvent(QMouseEvent *event)
 
 void MarkWidget::paintEvent(QPaintEvent *)
 {
-    QPainter painter(&m_screen_image);
+    QPainter painter;
+    if(m_drawing)
+    {
+        m_image = m_screen_image;
+        painter.begin(&m_image);
+    }
+    else
+    {
+        painter.begin(&m_screen_image);
+    }
     QPen pen;
     pen.setColor(m_paint_property.color);
     pen.setWidth(m_paint_property.width);
+    painter.setPen(pen);
     m_shape->drawShape(&painter);
 }
 
