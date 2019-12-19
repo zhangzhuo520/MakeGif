@@ -47,14 +47,12 @@ void ShapeRect::mouseDoubleClick(QMouseEvent * e)
 
 void ShapeRect::mousePressEvent(QMouseEvent * e)
 {
-    qDebug() << "mousePressEvent";
     m_is_pressed = true;
     m_start_pos = m_end_pos = e->pos();
 }
 
 void ShapeRect::mouseMoveEvent(QMouseEvent * e)
 {
-        qDebug() << "mouseMoveEvent";
     if(m_is_pressed)
     {
         m_end_pos = e->pos();
@@ -63,7 +61,6 @@ void ShapeRect::mouseMoveEvent(QMouseEvent * e)
 
 void ShapeRect::mouseReleaseEvent(QMouseEvent *e)
 {
-        qDebug() << "mouseReleaseEvent";
     m_end_pos = e->pos();
     m_is_pressed = false;
 }

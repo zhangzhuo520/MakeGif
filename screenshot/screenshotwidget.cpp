@@ -421,7 +421,7 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
 {
     Q_D(ScreenShotWidget);
     QPainter painter(this);
-
+    painter.setRenderHint(QPainter::Antialiasing, true);
     QPen pen(QColor(0, 0, 0, 0));
     QBrush brush(d->m_mask_color);
     painter.setPen(pen);
@@ -468,6 +468,7 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
     painter.setBrush(brush);
     QString text = QString::number(d->m_cut_area.width()) + " x " +  QString::number(d->m_cut_area.height());
     painter.drawText(d->m_cut_area.left(), d->m_cut_area.top() - 15, text);
+
 
     if(d->m_cut_area.width() != 0 && d->m_cut_area.height() != 0 &&
             d->m_paint_property.paint_type != PaintType::NONE)

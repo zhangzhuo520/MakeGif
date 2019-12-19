@@ -4,8 +4,9 @@
 #include <QPainter>
 #include <QColor>
 #include <QPen>
+#include <QBrush>
 #include "shaperect.h"
-
+#include "shapearrow.h"
 MarkWidget::MarkWidget(QSharedPointer <QPixmap> pixmap):
     m_screen_image(pixmap.data()->toImage()),
     m_image(pixmap.data()->toImage()),
@@ -21,10 +22,7 @@ MarkWidget::~MarkWidget()
 
 QImage MarkWidget::image()
 {
-    if(m_drawing)
-        return m_image.copy(m_cut_area);
-    else
-        return m_screen_image.copy(m_cut_area);
+    return m_image.copy(m_cut_area);
 }
 
 void MarkWidget::set_paint_property(PaintProperty property)
@@ -38,7 +36,7 @@ void MarkWidget::set_paint_property(PaintProperty property)
         m_shape = new ShapeRect;
         break;
     case ARROW:
-        m_shape = new ShapeRect;
+        m_shape = new ShapeArrow;
         break;
     case CIRCLE:
         m_shape = new ShapeRect;
@@ -106,6 +104,7 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
 void MarkWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     m_drawing = false;
+    m_screen_image = m_image;
     m_shape->mouseReleaseEvent(event);
 }
 
@@ -116,55 +115,22 @@ void MarkWidget::mouseMoveEvent(QMouseEvent *event)
 
 void MarkWidget::paintEvent(QPaintEvent *)
 {
+    if(!m_drawing) return;
     QPainter painter;
-    if(m_drawing)
-    {
-        m_image = m_screen_image;
-        painter.begin(&m_image);
-    }
-    else
-    {
-        painter.begin(&m_screen_image);
-    }
+    m_image = m_screen_image;
+    painter.begin(&m_image);
+    painter.setRenderHint(QPainter::Antialiasing, true);
     QPen pen;
     pen.setColor(m_paint_property.color);
     pen.setWidth(m_paint_property.width);
+    QBrush brush;
+    brush.setColor(Qt::red);
+    brush.setStyle(Qt::SolidPattern);
+    painter.setBrush(brush);
     painter.setPen(pen);
     m_shape->drawShape(&painter);
+    painter.end();
 }
 
 
-//void MarkWidget::drawArrows(const QPoint& startPoint, const QPoint& endPoint, QPainter &paiter)
-//{
-//    paiter.setRenderHint(QPainter::Antialiasing, true);
-//    QPen pen;
-////    pen.setColor(color_);
-//    pen.setWidth(1);
-//    paiter.setPen(pen);
-////    paiter.setBrush(color_);
 
-
-//    double par = 15.0;
-//    double slopy = atan2((endPoint.y() - startPoint.y()),
-//                         (endPoint.x() - startPoint.x()));
-//    double cos_y = cos(slopy);
-//    double sin_y = sin(slopy);
-//    QPoint head_point1 = QPoint(endPoint.x() + int(-par*cos_y - (par / 2.0 * sin_y)),
-//                           endPoint.y() + int(-par*sin_y + (par / 2.0 * cos_y)));
-//    QPoint head_point2 = QPoint(endPoint.x() + int(-par*cos_y + (par / 2.0 * sin_y)),
-//                           endPoint.y() - int(par / 2.0*cos_y + par * sin_y));
-//    QPoint head_points[3] = { endPoint, head_point1, head_point2 };
-
-//    paiter.drawPolygon(head_points, 3);
-
-
-//    int offset_x = int(par*sin_y / 3);
-//    int offset_y = int(par*cos_y / 3);
-//    QPoint body_point1, body_point2;
-//    body_point1 = QPoint(endPoint.x() + int(-par*cos_y - (par / 2.0*sin_y)) +
-//                    offset_x, endPoint.y() + int(-par*sin_y + (par / 2.0*cos_y)) - offset_y);
-//    body_point2 = QPoint(endPoint.x() + int(-par*cos_y + (par / 2.0*sin_y) - offset_x),
-//                    endPoint.y() - int(par / 2.0*cos_y + par*sin_y) + offset_y);
-//    QPoint body_points[3] = { startPoint, body_point1, body_point2 };
-//    paiter.drawPolygon(body_points, 3);
-//}

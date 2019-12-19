@@ -1,7 +1,9 @@
 #ifndef DATASTRUCT_H
 #define DATASTRUCT_H
 #include <QColor>
+#include <QBrush>
 #include <QObject>
+#include <qnamespace.h>
 enum PaintType
 {
     NONE,
@@ -17,7 +19,9 @@ typedef struct paintproperty
     paintproperty():
         paint_type(NONE),
         color(Qt::black),
-        width(1)
+        width(1),
+        line_style(0),
+        brush_style(0)
     {}
 
     paintproperty(const paintproperty & property)
@@ -25,6 +29,9 @@ typedef struct paintproperty
         color = property.color;
         width = property.width;
         paint_type = property.paint_type;
+        line_style = property.line_style;
+        brush_style = property.brush_style;
+
     }
 
     paintproperty(const PaintType& t, const QColor& c,  int w):
@@ -37,12 +44,16 @@ typedef struct paintproperty
         this->color = p.color;
         this->paint_type = p.paint_type;
         this->width = p.width;
+        this->brush_style = p.brush_style;
+        this->line_style = p.line_style;
         return *this;
     }
 
     PaintType paint_type;
     QColor color;
     int width;
+    int brush_style;
+    int line_style;
 }PaintProperty;
 
 class PaintPropertyList : public QList <PaintProperty *>
