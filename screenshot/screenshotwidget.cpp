@@ -332,6 +332,7 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
             default:
                 break;
             }
+        d->m_mark_widget->set_cut_area(d->m_cut_area);
         }
     }
 

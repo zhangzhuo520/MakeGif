@@ -30,7 +30,6 @@ public:
 
 signals:
     void signalUpdate();
-//    void drawArrows(const QPoint& startPoint, const QPoint& endPoint, QPainter &paiter);
 
 
 private:
