@@ -22,7 +22,8 @@ MarkWidget::~MarkWidget()
 
 QImage MarkWidget::image()
 {
-    return m_image.copy(m_cut_area);
+//    return m_image.copy(m_cut_area);
+    return m_image;
 }
 
 void MarkWidget::set_paint_property(PaintProperty property)
@@ -52,6 +53,8 @@ void MarkWidget::set_paint_property(PaintProperty property)
 void MarkWidget::set_cut_area(const QRect & rect)
 {
     m_cut_area.setRect(rect.x(), rect.y(), rect.width(), rect.height());
+    m_screen_image = m_screen_image.copy(m_cut_area);
+    m_image = m_image.copy(m_cut_area);
 }
 
 bool MarkWidget::handleEvent(QEvent *event)
@@ -120,6 +123,7 @@ void MarkWidget::paintEvent(QPaintEvent *)
     m_image = m_screen_image;
     painter.begin(&m_image);
     painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setViewport(m_cut_area);
     QPen pen;
     pen.setColor(m_paint_property.color);
     pen.setWidth(m_paint_property.width);

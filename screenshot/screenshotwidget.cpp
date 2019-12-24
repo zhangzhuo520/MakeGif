@@ -471,9 +471,9 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
     painter.drawText(d->m_cut_area.left(), d->m_cut_area.top() - 15, text);
 
 
-    if(d->m_cut_area.width() != 0 && d->m_cut_area.height() != 0 &&
-            d->m_paint_property.paint_type != PaintType::NONE)
-        painter.drawImage(d->m_cut_area, d->m_mark_widget->image());
+//    if(d->m_cut_area.width() != 0 && d->m_cut_area.height() != 0 &&
+//            d->m_paint_property.paint_type != PaintType::NONE)
+//        painter.drawImage(d->m_cut_area, d->m_mark_widget->image());
 
     QWidget::paintEvent(event);
 }
