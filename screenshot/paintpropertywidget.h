@@ -12,7 +12,7 @@ class PaintPropertyWidget : public QWidget
 public:
     PaintPropertyWidget(QWidget *parent = nullptr);
     ~PaintPropertyWidget();
-    void set_paint_property(const PaintProperty&);
+    void setPaintProperty(const PaintProperty&);
 protected:
     void paintEvent(QPaintEvent *);
 

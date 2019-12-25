@@ -15,6 +15,7 @@ protected:
     virtual void mousePressEvent(QMouseEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
     virtual void mouseReleaseEvent(QMouseEvent *);
+    virtual QRectF boundingBox();
 
 private:
     bool m_drawing;

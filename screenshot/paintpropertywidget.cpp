@@ -29,7 +29,7 @@ PaintPropertyWidget::~PaintPropertyWidget()
 
 }
 
-void PaintPropertyWidget::set_paint_property(const PaintProperty & property)
+void PaintPropertyWidget::setPaintProperty(const PaintProperty & property)
 {
     m_paint_property = property;
 }

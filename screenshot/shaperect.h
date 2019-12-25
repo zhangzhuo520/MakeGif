@@ -13,6 +13,7 @@ public:
     ~ShapeRect();
 
     virtual ShapeType getType() {return RECT; }
+    virtual QRectF boundingBox();
 
 protected:
     virtual void drawShape(QPainter *);

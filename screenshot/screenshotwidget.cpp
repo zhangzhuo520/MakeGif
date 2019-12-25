@@ -60,7 +60,7 @@ void ScreenShotWidgetPrivate::initWidget()
     m_color_picker = new ColorPicker(q, m_screen_pixmap);
     m_color_picker->show();
 
-    m_mark_widget = new MarkWidget(m_screen_pixmap);
+    m_mark_widget = new MarkWidget(q, m_screen_pixmap);
 
     m_painter_property_widget = new PaintPropertyWidget(q);
     m_painter_property_widget->setFixedSize(400, 90);
@@ -201,17 +201,15 @@ void ScreenShotWidget::slot_screenbar_property(PaintProperty property)
 {
     Q_D(ScreenShotWidget);
     d->m_paint_property = property;
-    d->m_painter_property_widget->set_paint_property(property);
-    d->m_mark_widget->set_paint_property(property);
-    d->m_mark_widget->set_cut_area(d->m_cut_area);
+    d->m_painter_property_widget->setPaintProperty(property);
+    d->m_mark_widget->setPaintProperty(property);
 }
 
 void ScreenShotWidget::slot_paint_property(PaintProperty property)
 {
     Q_D(ScreenShotWidget);
     d->m_paint_property = property;
-    d->m_mark_widget->set_paint_property(property);
-    d->m_mark_widget->set_cut_area(d->m_cut_area);
+    d->m_mark_widget->setPaintProperty(property);
 }
 
 bool ScreenShotWidget::event(QEvent *event)
@@ -261,6 +259,7 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else
         {
+            if(d->m_mark_widget->touchShape(event->pos())) return;
             int x_offset = event->pos().x() - d->m_press_pos.x();
             int y_offset = event->pos().y() - d->m_press_pos.y();
             int area_top = d->m_temp_rect.top() + y_offset;
@@ -332,12 +331,10 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
             default:
                 break;
             }
-        d->m_mark_widget->set_cut_area(d->m_cut_area);
         }
     }
 
     update();
-
     QWidget::mouseMoveEvent(event);
 }
 
@@ -367,14 +364,13 @@ void ScreenShotWidget::mousePressEvent(QMouseEvent *event)
 
 void ScreenShotWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-
     Q_D(ScreenShotWidget);
+    QPoint point(d->m_cut_area.right() - d->m_screenshot_bar->width(), d->m_cut_area.bottom() + 10);
     d->m_mouse_press = false;
     if(d->m_cut_state == ScreenShotWidgetPrivate::CUT)
     {
         d->m_cut_state = ScreenShotWidgetPrivate::SAVE;
         d->m_color_picker->hide();
-        QPoint point(d->m_cut_area.right() - d->m_screenshot_bar->width(), d->m_cut_area.bottom() + 10);
         if(d->m_cut_area.right() - d->m_screenshot_bar->width() < 0)
         {
             point.setX(d->m_cut_area.left());
@@ -388,15 +384,10 @@ void ScreenShotWidget::mouseReleaseEvent(QMouseEvent *event)
                 point.setY(d->m_cut_area.bottom() - 10 - d->m_screenshot_bar->height());
             }
         }
-
-        d->m_screenshot_bar->move(point);
-        d->m_screenshot_bar->show();
     }
     else if( d->m_cut_state == ScreenShotWidgetPrivate::SAVE)
     {
-
         d->m_temp_rect =  d->m_cut_area;
-        QPoint point(d->m_cut_area.right() - d->m_screenshot_bar->width(), d->m_cut_area.bottom() + 10);
         if(d->m_cut_area.right() - d->m_screenshot_bar->width() < 0)
         {
             point.setX(d->m_cut_area.left());
@@ -410,8 +401,14 @@ void ScreenShotWidget::mouseReleaseEvent(QMouseEvent *event)
                 point.setY(d->m_cut_area.bottom() - 10 - d->m_screenshot_bar->height());
             }
         }
+    }
+
+    if(d->m_cut_state == ScreenShotWidgetPrivate::SAVE || d->m_cut_state == ScreenShotWidgetPrivate::CUT)
+    {
         d->m_screenshot_bar->move(point);
         d->m_screenshot_bar->show();
+
+        d->m_mark_widget->setCutArea(d->m_cut_area);
     }
 
     update();
@@ -423,6 +420,8 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
     Q_D(ScreenShotWidget);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.drawImage(rect(), d->m_mark_widget->image());
+
     QPen pen(QColor(0, 0, 0, 0));
     QBrush brush(d->m_mask_color);
     painter.setPen(pen);
@@ -469,12 +468,6 @@ void ScreenShotWidget::paintEvent(QPaintEvent *event)
     painter.setBrush(brush);
     QString text = QString::number(d->m_cut_area.width()) + " x " +  QString::number(d->m_cut_area.height());
     painter.drawText(d->m_cut_area.left(), d->m_cut_area.top() - 15, text);
-
-
-//    if(d->m_cut_area.width() != 0 && d->m_cut_area.height() != 0 &&
-//            d->m_paint_property.paint_type != PaintType::NONE)
-//        painter.drawImage(d->m_cut_area, d->m_mark_widget->image());
-
     QWidget::paintEvent(event);
 }
 
@@ -486,14 +479,12 @@ void ScreenShotWidget::keyPressEvent(QKeyEvent *event)
         close();
     }
     QWidget::keyPressEvent(event);
-
 }
 
 void ScreenShotWidget::showEvent(QShowEvent *)
 {
     Q_D(ScreenShotWidget);
     d->m_screenshot_bar->hide();
-
 
     QPoint pickerPos(QCursor::pos().x() + 10, QCursor::pos().y() + 25);
     d->m_color_picker->move(pickerPos);

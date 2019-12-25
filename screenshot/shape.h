@@ -7,9 +7,9 @@ class QPainter;
 class QMouseEvent;
 class Shape
 {
+public:
     typedef QList <Shape *> ShapeList;
     typedef QList <Shape *>::iterator ShapeIterator;
-public:
     enum ShapeType
     {
         LINE,
@@ -22,7 +22,9 @@ public:
 
     explicit Shape(Shape *);
     virtual ~Shape() {}
-    ShapeList getShapeList() const {return m_shape_list;}
+     ShapeList static getShapeList()  {return m_shape_list;}
+
+    virtual QRectF boundingBox() = 0;
 
     virtual void drawShape(QPainter *) = 0;
     virtual void mousePressEvent(QMouseEvent *) {}
@@ -35,7 +37,7 @@ public:
    QColor m_shap_color;
    QBrush m_shape_brush;
 private:
-   QList <Shape *> m_shape_list;
+   static ShapeList m_shape_list;
 };
 
 #endif // SHAPE_H

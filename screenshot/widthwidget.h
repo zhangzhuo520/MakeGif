@@ -21,7 +21,6 @@ private:
     WidthLabel *m_thick_label;
     WidthLabel *m_normal_label;
     WidthLabel *m_thin_label;
-
 };
 
 #endif // WIDTHWIDGET_H

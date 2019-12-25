@@ -67,4 +67,13 @@ void ShapeArrow::mouseReleaseEvent(QMouseEvent *e)
     }
 }
 
+QRectF ShapeArrow::boundingBox()
+{
+    int left = m_start_point.x() < m_end_point.x() ? m_start_point.x() : m_end_point.x();
+    int right = m_start_point.x() > m_end_point.x() ? m_start_point.x() : m_end_point.x();
+    int top = m_start_point.y() < m_end_point.y() ? m_start_point.y() : m_end_point.y();
+    int bottom = m_start_point.y() > m_end_point.y() ? m_start_point.y() : m_end_point.y();
+    return  QRect(QPoint(left, top),  QPoint(right, bottom));
+}
+
 
