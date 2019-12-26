@@ -61,9 +61,6 @@ bool MarkWidget::handleEvent(QEvent *event)
             return true;
         }
 
-        if(!pointInRect(m_cut_area, QCursor::pos()))
-            return true;
-
         mousePressEvent(dynamic_cast <QMouseEvent *> (event));
         event->accept();
         emit signalUpdate();
@@ -72,8 +69,6 @@ bool MarkWidget::handleEvent(QEvent *event)
     case QEvent::MouseButtonRelease:
     {
         m_is_resize = false;
-        if(!pointInRect(m_cut_area, QCursor::pos()))
-            return true;
         mouseReleaseEvent(dynamic_cast <QMouseEvent *> (event));
         event->accept();
         emit signalUpdate();
@@ -82,8 +77,6 @@ bool MarkWidget::handleEvent(QEvent *event)
     case QEvent::MouseMove:
     {
         if(m_is_resize)
-            return true;
-        if(!pointInRect(m_cut_area, QCursor::pos()))
             return true;
         mouseMoveEvent(dynamic_cast <QMouseEvent *> (event));
         event->accept();
@@ -125,6 +118,7 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
         break;
     }
     m_drawing = true;
+    m_shape->setPaintRange(m_cut_area);
     m_shape->mousePressEvent(event);
 }
 
@@ -224,10 +218,8 @@ bool MarkWidget::touchShape(const QPoint & pos)
         right = right > rect.right() ? right : rect.right();
         top = top < rect.top() ? top : rect.top();
         bottom = bottom > rect.bottom() ? bottom : rect.bottom();
-        qDebug() <<  "22222222222222222touchShape : "  <<  left << right << top << bottom;
     }
     QRect temp_rect(QPoint(left, top), QPoint(right, bottom));
-    qDebug() << pointInRect(temp_rect, pos);
     return pointInRect(temp_rect, pos);
 }
 

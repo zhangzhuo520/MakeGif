@@ -121,7 +121,6 @@ ScreenShotWidget::~ScreenShotWidget()
 
 }
 
-
 ScreenShotWidgetPrivate::BorderType ScreenShotWidget::stayCutAreaBorder(const QRect &rect, int border)
 {
     QPoint pos = QCursor::pos();
@@ -259,7 +258,7 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else
         {
-            if(d->m_mark_widget->touchShape(event->pos())) return;
+//            if(d->m_mark_widget->touchShape(event->pos())) return;
             int x_offset = event->pos().x() - d->m_press_pos.x();
             int y_offset = event->pos().y() - d->m_press_pos.y();
             int area_top = d->m_temp_rect.top() + y_offset;

@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/shaperect.h \
     $$PWD/widthlabel.h \
     $$PWD/widthwidget.h \
-    $$PWD/shapearrow.h
+    $$PWD/shapearrow.h \
+    $$PWD/algorithm.h
 
 SOURCES += \
     $$PWD/colorlabel.cpp \
@@ -32,7 +33,8 @@ SOURCES += \
     $$PWD/shaperect.cpp \
     $$PWD/widthlabel.cc \
     $$PWD/widthwidget.cc \
-    $$PWD/shapearrow.cpp
+    $$PWD/shapearrow.cpp \
+    $$PWD/algorithm.cpp
 
 INCLUDEPATH +=  $$PWD/../app/
 

@@ -46,7 +46,7 @@ void ShapeArrow::mouseDoubleClick(QMouseEvent *)
 
 void ShapeArrow::mousePressEvent(QMouseEvent *e)
 {
-    if(e->button() == Qt::LeftButton)
+    if(e->button() == Qt::LeftButton && m_algorithm.pointInRect(m_paint_range, e->pos()))
     {
         m_drawing = true;
         m_start_point = m_end_point = e->pos();
@@ -56,24 +56,21 @@ void ShapeArrow::mousePressEvent(QMouseEvent *e)
 void ShapeArrow::mouseMoveEvent(QMouseEvent *e)
 {
     if(m_drawing)
-        m_end_point = e->pos();
+        m_end_point =  m_algorithm.pointLimitRect(m_paint_range, e->pos());
 }
 
 void ShapeArrow::mouseReleaseEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::LeftButton)
     {
+
         m_drawing = false;
     }
 }
 
 QRectF ShapeArrow::boundingBox()
 {
-    int left = m_start_point.x() < m_end_point.x() ? m_start_point.x() : m_end_point.x();
-    int right = m_start_point.x() > m_end_point.x() ? m_start_point.x() : m_end_point.x();
-    int top = m_start_point.y() < m_end_point.y() ? m_start_point.y() : m_end_point.y();
-    int bottom = m_start_point.y() > m_end_point.y() ? m_start_point.y() : m_end_point.y();
-    return  QRect(QPoint(left, top),  QPoint(right, bottom));
+    return getDefaultBoundingBox(m_start_point, m_end_point);
 }
 
 

@@ -33,6 +33,7 @@ public:
     bool touchShape(const QPoint&);
     bool pointInRect(const QRect&, const QPoint& pos);
 
+
 signals:
     void signalUpdate();
 
