@@ -8,14 +8,18 @@
 #include <QBrush>
 #include "shaperect.h"
 #include "shapearrow.h"
+#include "shapeline.h"
+#include "shapecircle.h"
+#include "shapetext.h"
 #include "screenshotwidget.h"
-
+#include "textedit.h"
 MarkWidget::MarkWidget(QWidget *widget, QSharedPointer <QPixmap> screen):
     m_drawing(false),
     m_is_resize(false),
     m_image(screen.data()->toImage()),
     m_screen_image(screen.data()->toImage()),
-    m_screen_widget(dynamic_cast<ScreenShotWidget *> (widget))
+    m_screen_widget(dynamic_cast<ScreenShotWidget *> (widget)),
+  m_text_edit(new TextEdit(m_screen_widget))
 {
 
 }
@@ -103,16 +107,17 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
         m_shape = new ShapeRect;
         break;
     case LINE:
-        m_shape = new ShapeRect;
+        m_shape = new ShapeLine;
         break;
     case ARROW:
         m_shape = new ShapeArrow;
         break;
     case CIRCLE:
-        m_shape = new ShapeRect;
+        m_shape = new ShapeCircle;
         break;
     case TEXT:
-        m_shape = new ShapeRect;
+        m_shape = new ShapeText(m_text_edit);
+        m_text_edit->setFont(QFont("Timers" , 18 ,  QFont::Thin));
         break;
     default:
         break;
@@ -148,9 +153,10 @@ void MarkWidget::paintEvent(QPaintEvent *)
     QPen pen;
     pen.setColor(m_paint_property.color);
     pen.setWidth(m_paint_property.width);
+    pen.setStyle(Qt::PenStyle(m_paint_property.line_style));
     QBrush brush;
-    brush.setColor(Qt::red);
-    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(m_paint_property.color);
+    brush.setStyle(Qt::BrushStyle(m_paint_property.brush_style));
     painter.setBrush(brush);
     painter.setPen(pen);
     m_shape->drawShape(&painter);
@@ -208,10 +214,10 @@ bool MarkWidget::coverBorder()
 
 bool MarkWidget::touchShape(const QPoint & pos)
 {
-    if(Shape::getShapeList().count() == 0) return true;
-    QRectF first_rect = Shape::getShapeList().at(0)->boundingBox();
+    if(Shape::shapeList().count() == 0) return true;
+    QRectF first_rect = Shape::shapeList().at(0)->boundingBox();
     int left(first_rect.left()), right(first_rect.right()), top(first_rect.top()), bottom(first_rect.right());
-    foreach (Shape *shape, m_shape->getShapeList())
+    foreach (Shape *shape, m_shape->shapeList())
     {
         QRectF rect = shape->boundingBox();
         left = left < rect.left() ? left : rect.left();

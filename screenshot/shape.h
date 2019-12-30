@@ -9,8 +9,6 @@ class QMouseEvent;
 class Shape
 {
 public:
-    typedef QList <Shape *> ShapeList;
-    typedef QList <Shape *>::iterator ShapeIterator;
     enum ShapeType
     {
         LINE,
@@ -18,13 +16,14 @@ public:
         ARROW,
         CIRCLE,
         RECT,
-        NUNE
+        TEXT,
+        NONE
     };
 
     explicit Shape(Shape *);
     virtual ~Shape() {}
 
-    ShapeList static getShapeList()  {return m_shape_list;}
+     QList <Shape *> static shapeList()  {return m_shape_list;}
     QRect getDefaultBoundingBox(const QPoint & start, const QPoint & end);
     void setPaintRange(const QRect& range);
 
@@ -35,14 +34,14 @@ public:
     virtual void mouseMoveEvent(QMouseEvent *)= 0;
     virtual void mouseDoubleClick(QMouseEvent *) = 0;
 
-   virtual ShapeType getType() {return NUNE;}
+   virtual ShapeType getType() {return NONE;}
 
    QColor m_shap_color;
    QBrush m_shape_brush;
    QRect m_paint_range;
    ShapeAlgorithm m_algorithm;
 private:
-   static ShapeList m_shape_list;
+   static  QList <Shape *> m_shape_list;
 
 };
 

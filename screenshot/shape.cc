@@ -1,5 +1,5 @@
 #include "shape.h"
-Shape::ShapeList Shape:: m_shape_list;
+QList <Shape *> Shape:: m_shape_list;
 Shape::Shape(Shape *shape):
     m_paint_range(0, 0, 0 ,0)
 {

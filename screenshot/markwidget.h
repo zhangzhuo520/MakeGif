@@ -12,6 +12,7 @@ class QPixmap;
 class Shape;
 class QPaintEvent;
 class ScreenShotWidget;
+class TextEdit;
 class MarkWidget : public QObject
 {
     Q_OBJECT
@@ -47,6 +48,8 @@ private:
     Shape *m_shape;
     QRect m_cut_area;
     ScreenShotWidget *m_screen_widget;
+    TextEdit *m_text_edit;
+
 };
 
 #endif // MARKWIDGET_H

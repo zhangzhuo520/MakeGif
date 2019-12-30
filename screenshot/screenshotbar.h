@@ -32,6 +32,9 @@ private:
     PushButton *m_line_btn;
     PushButton *m_arrow_btn;
     PushButton *m_box_btn;
+    PushButton *m_circle_btn;
+    PushButton *m_text_btn;
+
     PushButton *m_ok_btn;
     PushButton *m_cancel_btn;
     PPropertyList m_property_list;

@@ -4,6 +4,7 @@
 #include "colorpicker.h"
 #include "paintpropertywidget.h"
 #include "markwidget.h"
+#include "shape.h"
 #include <windows.h>
 #include <QLabel>
 #include <QPaintEvent>
@@ -40,7 +41,6 @@ void ScreenShotWidgetPrivate::initProperty()
 {
     Q_Q(ScreenShotWidget);
     q->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint);
-    q->setAttribute(Qt::WA_TranslucentBackground);
     q->setMouseTracking(true);
 }
 
@@ -178,7 +178,7 @@ void ScreenShotWidget::slot_area_cut_done()
 {
     Q_D(ScreenShotWidget);
 //    QPixmap pic = QGuiApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId(),  d->m_cut_area.left(), d->m_cut_area.top(), d->m_cut_area.width(), d->m_cut_area.height());
-    QPixmap pic = QPixmap::fromImage(d->m_mark_widget->image());
+    QPixmap pic = QPixmap::fromImage(d->m_mark_widget->image().copy(d->m_cut_area));
     QString path = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "/" + QDateTime::currentDateTime() .toString("yyyy-MM-dd-hh-mm-ss") + ".png";
     pic.save(path,  "PNG");
     qDebug() << "save image :" << path;
@@ -225,7 +225,6 @@ bool ScreenShotWidget::event(QEvent *event)
 void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
 {
     Q_D(ScreenShotWidget);
-
     QPoint pickerPos(event->pos().x() + 10, event->pos().y() + 25);
     if(event->pos().x() + 10 + d->m_color_picker->width()> QApplication::desktop()->width())
     {
@@ -244,21 +243,21 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
         getSmallestWindowFromCursor(d->m_cut_area);
         ::EnableWindow((HWND)winId(), TRUE);
     }
-
-    if(d->m_mouse_press && d->m_cut_state == ScreenShotWidgetPrivate::CUT)
+    else if(d->m_mouse_press && d->m_cut_state == ScreenShotWidgetPrivate::CUT)
     {
         d->m_cut_area = d->getDefaultRect(d->m_press_pos, event->pos());
     }
-
-    if(d->m_cut_state == ScreenShotWidgetPrivate::SAVE)
+    else if(d->m_cut_state == ScreenShotWidgetPrivate::SAVE)
     {
+//        static int i = 0;
+//        qDebug() << "111111111111" << i ++ << event->pos() << d->m_mark_widget->touchShape(event->pos());
+//        if(d->m_mark_widget->touchShape(event->pos()) && Shape::shapeList().count() != 0) return;
         if(!d->m_mouse_press)
         {
             stayCutAreaBorder(d->m_cut_area, 5);
         }
         else
         {
-//            if(d->m_mark_widget->touchShape(event->pos())) return;
             int x_offset = event->pos().x() - d->m_press_pos.x();
             int y_offset = event->pos().y() - d->m_press_pos.y();
             int area_top = d->m_temp_rect.top() + y_offset;

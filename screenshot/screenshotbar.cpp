@@ -33,17 +33,26 @@ void ScreenShotBar::initUi()
     m_box_btn->setObjectName("Box");
     m_arrow_btn = new PushButton("Arrow", this);
     m_arrow_btn->setObjectName("Arrow");
+    m_circle_btn = new PushButton("Circle", this);
+    m_circle_btn->setObjectName("Circle");
+    m_text_btn = new PushButton("Text", this);
+    m_text_btn->setObjectName("Text");
+
     m_ok_btn = new PushButton("OK", this);
     m_cancel_btn = new PushButton("Cancel", this);
+    hlayout->addWidget(m_arrow_btn);
+    hlayout->addWidget(m_text_btn);
     hlayout->addWidget(m_line_btn);
     hlayout->addWidget(m_box_btn);
-    hlayout->addWidget(m_arrow_btn);
+    hlayout->addWidget(m_circle_btn);
     hlayout->addWidget(m_cancel_btn);
     hlayout->addWidget(m_ok_btn);
     setLayout(hlayout);
     connect(m_line_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_box_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_arrow_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
+    connect(m_circle_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
+    connect(m_text_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_ok_btn, SIGNAL(pressed()), this, SIGNAL(signal_ok_btnclick()));
     connect(m_cancel_btn, SIGNAL(pressed()), this, SIGNAL(signal_cancel_btnclick()));
 }
@@ -83,19 +92,42 @@ void ScreenShotBar::slotShowPropertyWidget()
     {
         pproperty.paint_type = LINE;
         pproperty.color = Qt::red;
-        pproperty.width = 2;
+        pproperty.width = 1;
+        pproperty.line_style = 1;
+        pproperty.brush_style = 0;
     }
     else  if(btn->objectName()  == "Box")
     {
         pproperty.paint_type = BOX;
         pproperty.color = Qt::red;
-        pproperty.width = 2;
+        pproperty.width = 1;
+        pproperty.line_style = 1;
+        pproperty.brush_style = 0;
     }
     else  if(btn->objectName()  =="Arrow")
     {
         pproperty.paint_type = ARROW;
         pproperty.color = Qt::red;
-        pproperty.width = 2;
+        pproperty.width = 1;
+        pproperty.line_style = 1;
+        pproperty.brush_style = 1;
+    }
+    else  if(btn->objectName()  =="Circle")
+    {
+        pproperty.paint_type = CIRCLE;
+        pproperty.color = Qt::red;
+        pproperty.width = 1;
+        pproperty.line_style = 1;
+        pproperty.brush_style = 1;
+
+    }
+    else  if(btn->objectName()  =="Text")
+    {
+        pproperty.paint_type = TEXT;
+        pproperty.color = Qt::red;
+        pproperty.width = 1;
+        pproperty.line_style = 1;
+        pproperty.brush_style = 1;
     }
 
     emit signal_paint_property(pproperty);
