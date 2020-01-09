@@ -22,5 +22,8 @@ SOURCES += \
     app/mainwidget.cpp \
     app/pushbutton.cpp
 
+RESOURCES += \
+    images.qrc
+
 
 

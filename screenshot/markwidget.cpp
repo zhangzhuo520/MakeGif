@@ -106,7 +106,7 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
     case BOX:
         m_shape = new ShapeRect;
         break;
-    case LINE:
+    case PEN:
         m_shape = new ShapeLine;
         break;
     case ARROW:

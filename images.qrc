@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/arrow.svg</file>
+        <file>images/circle.svg</file>
+        <file>images/cut.png</file>
+        <file>images/mask.svg</file>
+        <file>images/pen.svg</file>
+        <file>images/rect.svg</file>
+        <file>images/text.svg</file>
+        <file>images/qss/style.qss</file>
+        <file>images/close.svg</file>
+        <file>images/yes.svg</file>
+    </qresource>
+</RCC>

@@ -7,11 +7,12 @@
 enum PaintType
 {
     NONE,
-    LINE,
+    MASK,
     ARROW,
     BOX,
     CIRCLE,
-    TEXT
+    TEXT,
+    PEN
 };
 
 typedef struct paintproperty
@@ -20,8 +21,8 @@ typedef struct paintproperty
         paint_type(NONE),
         color(Qt::black),
         width(1),
-        line_style(0),
-        brush_style(0)
+        brush_style(0),
+        line_style(0)
     {}
 
     paintproperty(const paintproperty & property)

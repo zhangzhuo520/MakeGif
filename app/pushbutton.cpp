@@ -1,7 +1,7 @@
 #include "pushbutton.h"
 #include <QtWidgets/QSizePolicy>
 PushButton::PushButton(QWidget *parent):
-    QPushButton(parent)
+    QPushButton(" ", parent)
 {
 }
 

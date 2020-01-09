@@ -5,6 +5,7 @@
 class APP_EXPORT PushButton : public QPushButton
 {
     Q_OBJECT
+//    Q_PROPERTY(bool selected READ check WRITE setChecked)
 public:
    explicit  PushButton(QWidget *parent = Q_NULLPTR);
    PushButton(const QString &text, QWidget *parent = Q_NULLPTR);

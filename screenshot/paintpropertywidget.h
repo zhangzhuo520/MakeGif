@@ -1,20 +1,17 @@
 #ifndef     PAINTPROPERTYWIDGET_H
 #define PAINTPROPERTYWIDGET_H
-#include <QWidget>
+#include "abstractpropertywidget.h"
 #include "datastruct.h"
 class QPaintEvent;
 class ColorManagerWidget;
 class QGraphicsDropShadowEffect;
 class WidthWidget;
-class PaintPropertyWidget : public QWidget
+class PaintPropertyWidget : public AbstractPropertyWidget
 {
     Q_OBJECT
 public:
     PaintPropertyWidget(QWidget *parent = nullptr);
     ~PaintPropertyWidget();
-    void setPaintProperty(const PaintProperty&);
-protected:
-    void paintEvent(QPaintEvent *);
 
 signals:
     void signal_paint_property(PaintProperty);

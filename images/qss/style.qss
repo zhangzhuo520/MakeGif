@@ -1,0 +1,45 @@
+/******************************PushButton**************************************/
+PushButton
+{
+    background : rgba(0, 0, 0, 0);
+}
+
+PushButton#ArrowBtn
+{
+    image :  url(:/images/arrow.svg);
+}
+
+PushButton#CircleBtn
+{
+     image :  url(:/images/circle.svg);
+}
+
+PushButton#MaskBtn
+{
+     image :  url(:/images/mask.svg);
+}
+
+PushButton#PenBtn
+{
+     image :  url(:/images/pen.svg);
+}
+
+PushButton#TextBtn
+{
+    image :  url(:/images/text.svg);
+}
+
+PushButton#BoxBtn
+{
+    image :  url(:/images/rect.svg);
+}
+
+PushButton#OkBtn
+{
+    image :  url(:/images/yes.svg);
+}
+
+PushButton#CancelBtn
+{
+    image :  url(:/images/close.svg);
+}

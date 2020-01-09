@@ -23,7 +23,8 @@ HEADERS += \
     $$PWD/shapeline.h \
     $$PWD/shapecircle.h \
     $$PWD/shapetext.h \
-    $$PWD/textedit.h
+    $$PWD/textedit.h \
+    $$PWD/abstractpropertywidget.h
 
 SOURCES += \
     $$PWD/colorlabel.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     $$PWD/shapeline.cpp \
     $$PWD/shapecircle.cpp \
     $$PWD/shapetext.cpp \
-    $$PWD/textedit.cpp
+    $$PWD/textedit.cpp \
+    $$PWD/abstractpropertywidget.cpp
 
 INCLUDEPATH +=  $$PWD/../app/
 

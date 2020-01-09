@@ -9,14 +9,10 @@
 
 ScreenShotBar::ScreenShotBar(QWidget *parent):
     QWidget(parent),
-    m_enter(false),
-    m_screen_widget(dynamic_cast <ScreenShotWidget *>(parent))
+    m_screen_widget(dynamic_cast <ScreenShotWidget *>(parent)),
+    m_enter(false)
 {
     initUi();
-    m_property_list << new PaintProperty(LINE, Qt::black, 1)
-                    << new PaintProperty(ARROW, Qt::black, 1)
-                    << new PaintProperty(BOX, Qt::black, 1);
-
 }
 
 ScreenShotBar::~ScreenShotBar()
@@ -27,28 +23,34 @@ ScreenShotBar::~ScreenShotBar()
 void ScreenShotBar::initUi()
 {
     QHBoxLayout *hlayout = new QHBoxLayout(this);
-    m_line_btn = new PushButton("Line", this);
-    m_line_btn->setObjectName("Line");
-    m_box_btn = new PushButton("Box", this);
-    m_box_btn->setObjectName("Box");
-    m_arrow_btn = new PushButton("Arrow", this);
-    m_arrow_btn->setObjectName("Arrow");
-    m_circle_btn = new PushButton("Circle", this);
-    m_circle_btn->setObjectName("Circle");
-    m_text_btn = new PushButton("Text", this);
-    m_text_btn->setObjectName("Text");
+    m_mask_btn = new PushButton( this);
+    m_mask_btn->setObjectName("MaskBtn");
+    m_box_btn = new PushButton( this);
+    m_box_btn->setObjectName("BoxBtn");
+    m_arrow_btn = new PushButton(this);
+    m_arrow_btn->setObjectName("ArrowBtn");
+    m_circle_btn = new PushButton(this);
+    m_circle_btn->setObjectName("CircleBtn");
+    m_text_btn = new PushButton(this);
+    m_text_btn->setObjectName("TextBtn");
+    m_pen_btn = new PushButton(this);
+    m_pen_btn->setObjectName("PenBtn");
 
-    m_ok_btn = new PushButton("OK", this);
-    m_cancel_btn = new PushButton("Cancel", this);
+
+    m_ok_btn = new PushButton(this);
+    m_ok_btn->setObjectName("OkBtn");
+    m_cancel_btn = new PushButton( this);
+    m_cancel_btn->setObjectName("CancelBtn");
     hlayout->addWidget(m_arrow_btn);
     hlayout->addWidget(m_text_btn);
-    hlayout->addWidget(m_line_btn);
+    hlayout->addWidget(m_pen_btn);
     hlayout->addWidget(m_box_btn);
     hlayout->addWidget(m_circle_btn);
+    hlayout->addWidget(m_mask_btn);
     hlayout->addWidget(m_cancel_btn);
     hlayout->addWidget(m_ok_btn);
     setLayout(hlayout);
-    connect(m_line_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
+    connect(m_mask_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_box_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_arrow_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_circle_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
@@ -88,15 +90,15 @@ void ScreenShotBar::slotShowPropertyWidget()
     PushButton *btn = dynamic_cast <PushButton *> (sender());
     m_screen_widget->showPaintPropertyWidget(mapToGlobal(btn->pos()));
     PaintProperty pproperty;
-    if(btn->objectName()  == "Line")
+    if(btn->objectName()  == "MaskBtn")
     {
-        pproperty.paint_type = LINE;
+        pproperty.paint_type = MASK;
         pproperty.color = Qt::red;
         pproperty.width = 1;
         pproperty.line_style = 1;
         pproperty.brush_style = 0;
     }
-    else  if(btn->objectName()  == "Box")
+    else  if(btn->objectName()  == "BoxBtn")
     {
         pproperty.paint_type = BOX;
         pproperty.color = Qt::red;
@@ -104,7 +106,7 @@ void ScreenShotBar::slotShowPropertyWidget()
         pproperty.line_style = 1;
         pproperty.brush_style = 0;
     }
-    else  if(btn->objectName()  =="Arrow")
+    else  if(btn->objectName()  =="ArrowBtn")
     {
         pproperty.paint_type = ARROW;
         pproperty.color = Qt::red;
@@ -112,22 +114,30 @@ void ScreenShotBar::slotShowPropertyWidget()
         pproperty.line_style = 1;
         pproperty.brush_style = 1;
     }
-    else  if(btn->objectName()  =="Circle")
+    else  if(btn->objectName()  =="CircleBtn")
     {
         pproperty.paint_type = CIRCLE;
         pproperty.color = Qt::red;
         pproperty.width = 1;
         pproperty.line_style = 1;
-        pproperty.brush_style = 1;
+        pproperty.brush_style = 0;
 
     }
-    else  if(btn->objectName()  =="Text")
+    else  if(btn->objectName()  =="TextBtn")
     {
         pproperty.paint_type = TEXT;
         pproperty.color = Qt::red;
         pproperty.width = 1;
         pproperty.line_style = 1;
         pproperty.brush_style = 1;
+    }
+    else if(btn->objectName() == "PenBtn")
+    {
+        pproperty.paint_type = PEN;
+        pproperty.color = Qt::red;
+        pproperty.width = 1;
+        pproperty.line_style = 1;
+        pproperty.brush_style = 0;
     }
 
     emit signal_paint_property(pproperty);
