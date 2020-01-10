@@ -12,7 +12,7 @@ public:
     ~WidthWidget();
 
 signals:
-    void singal_select_width(int);
+    void signalSelectWidth(int);
 
 public slots:
     void slotSelectChange();

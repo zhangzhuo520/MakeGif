@@ -21,9 +21,9 @@ public:
     virtual void leaveEvent(QEvent *);
     bool mouseEnter();
 signals:
-    void signal_ok_btnclick();
-    void signal_cancel_btnclick();
-    void signal_paint_property(PaintProperty);
+    void signalOkBtnclick();
+    void signalCancelBtnclick();
+    void signalPaintProperty(PaintProperty);
 
 public slots:
     void slotShowPropertyWidget();

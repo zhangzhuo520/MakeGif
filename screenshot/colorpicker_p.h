@@ -11,6 +11,7 @@ class ColorPickerPrivate : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PUBLIC(ColorPicker)
+
 public:
     explicit ColorPickerPrivate(ColorPicker *widget = nullptr, QSharedPointer <QPixmap> screen = nullptr);
     ~ColorPickerPrivate();

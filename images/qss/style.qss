@@ -43,3 +43,13 @@ PushButton#CancelBtn
 {
     image :  url(:/images/close.svg);
 }
+
+Label
+{
+    background : rgba(0, 0, 0, 0);
+}
+
+Label#TextLabel
+{
+    image :  url(:/images/text.svg);
+}

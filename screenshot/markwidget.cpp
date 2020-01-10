@@ -4,8 +4,10 @@
 #include <QPainter>
 #include <QColor>
 #include <QPen>
+#include <QFontMetrics>
 #include <QGuiApplication>
 #include <QBrush>
+//#include <Q
 #include "shaperect.h"
 #include "shapearrow.h"
 #include "shapeline.h"
@@ -21,7 +23,7 @@ MarkWidget::MarkWidget(QWidget *widget, QSharedPointer <QPixmap> screen):
     m_screen_widget(dynamic_cast<ScreenShotWidget *> (widget)),
   m_text_edit(new TextEdit(m_screen_widget))
 {
-
+        m_text_edit->hide();
 }
 
 MarkWidget::~MarkWidget()
@@ -42,6 +44,7 @@ void MarkWidget::setBgImage(QSharedPointer<QPixmap> pixmap)
 void MarkWidget::setPaintProperty(PaintProperty property)
 {
     m_paint_property = property;
+    updateFont();
 }
 
 void MarkWidget::setCutArea(const QRect & rect)
@@ -116,9 +119,10 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
         m_shape = new ShapeCircle;
         break;
     case TEXT:
-        m_shape = new ShapeText(m_text_edit);
-        m_text_edit->setFont(QFont("Timers" , 18 ,  QFont::Thin));
+    {
+        m_shape = new ShapeText(m_text_edit, m_font);
         break;
+    }
     default:
         break;
     }
@@ -237,4 +241,18 @@ bool MarkWidget::pointInRect(const QRect &rect, const QPoint &pos)
         return true;
     }
     return false;
+}
+
+void MarkWidget::updateFont()
+{
+    if(m_paint_property.paint_type == TEXT)
+    {
+        m_font = QFont("Times", m_paint_property.width, QFont::Thin);
+        QFontMetrics fonmetcris(m_font);
+        m_text_edit->setFont(m_font);
+        QPalette palette = m_text_edit->palette();
+        palette.setColor(QPalette::Text,  m_paint_property.color);
+        m_text_edit->setPalette(palette);
+        m_text_edit->setFixedHeight(fonmetcris.height() + 10);
+    }
 }

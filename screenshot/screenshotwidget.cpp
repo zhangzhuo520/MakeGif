@@ -3,6 +3,7 @@
 #include "../app/mainwidget.h"
 #include "colorpicker.h"
 #include "paintpropertywidget.h"
+#include "textpropertywidget.h"
 #include "markwidget.h"
 #include "shape.h"
 #include <windows.h>
@@ -65,6 +66,10 @@ void ScreenShotWidgetPrivate::initWidget()
     m_painter_property_widget = new PaintPropertyWidget(q);
     m_painter_property_widget->setFixedSize(400, 90);
     m_painter_property_widget->hide();
+
+    m_text_property_widget = new TextPropertyWidget(q);
+    m_text_property_widget->setFixedSize(400, 90);
+    m_text_property_widget->hide();
 }
 
 QSharedPointer <QPixmap> ScreenShotWidgetPrivate::getScreenPixmap()
@@ -109,10 +114,11 @@ ScreenShotWidget::ScreenShotWidget(QWidget *parent):
     d->initProperty();
     d->initWidget();
     setAttribute(Qt::WA_DeleteOnClose);
-    connect(d->m_screenshot_bar, SIGNAL(signal_ok_btnclick()), this, SLOT(slot_area_cut_done()));
-    connect(d->m_screenshot_bar, SIGNAL(signal_cancel_btnclick()), this, SLOT(slot_close_cut()));
-    connect(d->m_screenshot_bar, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_screenbar_property(PaintProperty)));
-    connect(d->m_painter_property_widget, SIGNAL(signal_paint_property(PaintProperty)), this, SLOT(slot_paint_property(PaintProperty)));
+    connect(d->m_screenshot_bar, SIGNAL(signalOkBtnclick()), this, SLOT(slotAreaCutdone()));
+    connect(d->m_screenshot_bar, SIGNAL(signalCancelBtnclick()), this, SLOT(slotCloseCut()));
+    connect(d->m_screenshot_bar, SIGNAL(signalPaintProperty(PaintProperty)), this, SLOT(slotScreenbarProperty(PaintProperty)));
+    connect(d->m_painter_property_widget, SIGNAL(signalPaintProperty(PaintProperty)), this, SLOT(slotPaintProperty(PaintProperty)));
+    connect(d->m_text_property_widget, SIGNAL(signalPaintProperty(PaintProperty)), this, SLOT(slotPaintProperty(PaintProperty)));
     connect(d->m_mark_widget, SIGNAL(signalUpdate()), this, SLOT(update()));
 }
 
@@ -174,7 +180,7 @@ ScreenShotWidgetPrivate::BorderType ScreenShotWidget::stayCutAreaBorder(const QR
     return ScreenShotWidgetPrivate::NOBORDER;
 }
 
-void ScreenShotWidget::slot_area_cut_done()
+void ScreenShotWidget::slotAreaCutdone()
 {
     Q_D(ScreenShotWidget);
 //    QPixmap pic = QGuiApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId(),  d->m_cut_area.left(), d->m_cut_area.top(), d->m_cut_area.width(), d->m_cut_area.height());
@@ -182,10 +188,10 @@ void ScreenShotWidget::slot_area_cut_done()
     QString path = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation) + "/" + QDateTime::currentDateTime() .toString("yyyy-MM-dd-hh-mm-ss") + ".png";
     pic.save(path,  "PNG");
     qDebug() << "save image :" << path;
-    slot_close_cut();
+    slotCloseCut();
 }
 
-void ScreenShotWidget::slot_close_cut()
+void ScreenShotWidget::slotCloseCut()
 {
     Q_D(ScreenShotWidget);
     d->m_cut_state = ScreenShotWidgetPrivate::NONE;
@@ -196,15 +202,22 @@ void ScreenShotWidget::slot_close_cut()
     close();
 }
 
-void ScreenShotWidget::slot_screenbar_property(PaintProperty property)
+void ScreenShotWidget::slotScreenbarProperty(PaintProperty property)
 {
     Q_D(ScreenShotWidget);
     d->m_paint_property = property;
-    d->m_painter_property_widget->setPaintProperty(property);
+    if(property.paint_type == TEXT)
+    {
+        d->m_text_property_widget->setPaintProperty(property);
+    }
+    else
+    {
+        d->m_painter_property_widget->setPaintProperty(property);
+    }
     d->m_mark_widget->setPaintProperty(property);
 }
 
-void ScreenShotWidget::slot_paint_property(PaintProperty property)
+void ScreenShotWidget::slotPaintProperty(PaintProperty property)
 {
     Q_D(ScreenShotWidget);
     d->m_paint_property = property;
@@ -249,8 +262,6 @@ void ScreenShotWidget::mouseMoveEvent(QMouseEvent *event)
     }
     else if(d->m_cut_state == ScreenShotWidgetPrivate::SAVE)
     {
-//        static int i = 0;
-//        qDebug() << "111111111111" << i ++ << event->pos() << d->m_mark_widget->touchShape(event->pos());
 //        if(d->m_mark_widget->touchShape(event->pos()) && Shape::shapeList().count() != 0) return;
         if(!d->m_mouse_press)
         {
@@ -514,24 +525,25 @@ bool ScreenShotWidget::getSmallestWindowFromCursor(QRect& out_rect)
                          temp_window.right - temp_window.left,
                          temp_window.bottom - temp_window.top);
 
-
         return true;
     }
     return false;
 }
 
-void ScreenShotWidget::showPaintPropertyWidget(const QPoint& point)
+void ScreenShotWidget::showPropertyWidget(const QPoint& point)
 {
     Q_D(ScreenShotWidget);
     QPoint pos(point.x(), point.y() + 20);
+    if(d->m_paint_property.paint_type == TEXT)
+    {
+        d->m_painter_property_widget->hide();
+        d->m_text_property_widget->move(pos);
+        d->m_text_property_widget->show();
+        return;
+    }
+    d->m_text_property_widget->hide();
     d->m_painter_property_widget->move(pos);
     d->m_painter_property_widget->show();
-}
-
-PaintPropertyWidget *ScreenShotWidget::getPropertyWidget()
-{
-    Q_D(ScreenShotWidget);
-    return d->m_painter_property_widget;
 }
 
 bool ScreenShotWidget::getCurrentWindowFromCursor(QRect &out_rect)

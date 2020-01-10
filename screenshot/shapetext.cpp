@@ -2,10 +2,12 @@
 #include "textedit.h"
 #include <QPainter>
 
-ShapeText::ShapeText(TextEdit * edit):
+ShapeText::ShapeText(TextEdit * edit, QFont font):
     Shape(this),
     m_text_edit(edit),
-    m_text_pos(0, 0)
+    m_text_pos(0, 0),
+    m_text(""),
+    m_font(font)
 {
 
 }
@@ -22,8 +24,9 @@ QRectF ShapeText::boundingBox()
 
 void ShapeText::drawShape(QPainter *painter)
 {
-    painter->setFont(QFont("Timers" , 18,  QFont::Thin));
-    painter->drawText(m_text_pos, m_text_edit->text());
+    painter->setFont(m_font);
+    m_text =  m_text_edit->text();
+    painter->drawText(m_text_pos, m_text);
     m_text_edit->clear();
 }
 
@@ -41,8 +44,8 @@ void ShapeText::mousePressEvent(QMouseEvent *e)
     }
     else
     {
-        m_text_pos.setX(m_text_edit->pos().x() + 3);
-        m_text_pos.setY(m_text_edit->pos().y() + 21);
+        m_text_pos.setX(m_text_edit->pos().x());
+        m_text_pos.setY(m_text_edit->pos().y());
         m_text_edit->hide();
     }
 }

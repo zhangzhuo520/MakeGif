@@ -20,14 +20,13 @@ public:
 
     bool getSmallestWindowFromCursor(QRect& out_rect);
 
-    void showPaintPropertyWidget(const QPoint&);
+    void showPropertyWidget(const QPoint&);
 
-    PaintPropertyWidget *getPropertyWidget();
 public slots:
-    void slot_area_cut_done();
-    void slot_close_cut();
-    void slot_screenbar_property(PaintProperty);
-    void slot_paint_property(PaintProperty);
+    void slotAreaCutdone();
+    void slotCloseCut();
+    void slotScreenbarProperty(PaintProperty);
+    void slotPaintProperty(PaintProperty);
 
 protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;

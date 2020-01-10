@@ -7,7 +7,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 include(deftools/deftools.pri)
 include(recordgif/recordgif.pri)
 include(screenshot/screenshot.pri)
-
+include(widgets/widgets.pri)
 
 HEADERS += \
     app/imagelabel.h \

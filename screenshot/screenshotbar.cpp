@@ -55,8 +55,8 @@ void ScreenShotBar::initUi()
     connect(m_arrow_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_circle_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_text_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
-    connect(m_ok_btn, SIGNAL(pressed()), this, SIGNAL(signal_ok_btnclick()));
-    connect(m_cancel_btn, SIGNAL(pressed()), this, SIGNAL(signal_cancel_btnclick()));
+    connect(m_ok_btn, SIGNAL(pressed()), this, SIGNAL(signalOkBtnclick()));
+    connect(m_cancel_btn, SIGNAL(pressed()), this, SIGNAL(signalCancelBtnclick()));
 }
 
 void ScreenShotBar::paintEvent(QPaintEvent *)
@@ -88,7 +88,6 @@ bool ScreenShotBar::mouseEnter()
 void ScreenShotBar::slotShowPropertyWidget()
 {
     PushButton *btn = dynamic_cast <PushButton *> (sender());
-    m_screen_widget->showPaintPropertyWidget(mapToGlobal(btn->pos()));
     PaintProperty pproperty;
     if(btn->objectName()  == "MaskBtn")
     {
@@ -121,7 +120,6 @@ void ScreenShotBar::slotShowPropertyWidget()
         pproperty.width = 1;
         pproperty.line_style = 1;
         pproperty.brush_style = 0;
-
     }
     else  if(btn->objectName()  =="TextBtn")
     {
@@ -139,7 +137,7 @@ void ScreenShotBar::slotShowPropertyWidget()
         pproperty.line_style = 1;
         pproperty.brush_style = 0;
     }
-
-    emit signal_paint_property(pproperty);
+    emit signalPaintProperty(pproperty);
+    m_screen_widget->showPropertyWidget(mapToGlobal(btn->pos()));
 }
 

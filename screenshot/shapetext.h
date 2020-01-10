@@ -1,12 +1,12 @@
 #ifndef SHAPETEXT_H
 #define SHAPETEXT_H
 #include "shape.h"
-
+#include <QFont>
 class TextEdit;
 class ShapeText : public Shape
 {
 public:
-    ShapeText(TextEdit *);
+    ShapeText(TextEdit *, QFont);
     ~ShapeText();
 
     virtual ShapeType getType() {return TEXT; }
@@ -22,6 +22,8 @@ protected:
 private:
     TextEdit *m_text_edit;
     QPoint m_text_pos;
+    QString m_text;
+    QFont m_font;
 };
 
 

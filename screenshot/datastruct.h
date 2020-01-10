@@ -6,13 +6,13 @@
 #include <qnamespace.h>
 enum PaintType
 {
-    NONE,
-    MASK,
-    ARROW,
+    ARROW = 0,
+    TEXT,
+    PEN,
     BOX,
     CIRCLE,
-    TEXT,
-    PEN
+    MASK,
+    NONE
 };
 
 typedef struct paintproperty

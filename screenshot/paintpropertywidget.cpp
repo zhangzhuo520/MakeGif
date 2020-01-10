@@ -16,8 +16,8 @@ PaintPropertyWidget::PaintPropertyWidget(QWidget *parent):
     AbstractPropertyWidget(parent)
 {
     initWidgets();
-    connect(m_color_widget, SIGNAL(signal_select_color(QColor)), this, SLOT(slot_select_color(QColor)));
-    connect(m_width_widget, SIGNAL(singal_select_width(int)), this, SLOT(slot_select_width(int)));
+    connect(m_color_widget, SIGNAL(signalSelectColor(QColor)), this, SLOT(slotSelectColor(QColor)));
+    connect(m_width_widget, SIGNAL(signalSelectWidth(int)), this, SLOT(slotSelectWidth(int)));
 }
 
 PaintPropertyWidget::~PaintPropertyWidget()
@@ -25,16 +25,16 @@ PaintPropertyWidget::~PaintPropertyWidget()
 
 }
 
-void PaintPropertyWidget::slot_select_color(QColor color)
+void PaintPropertyWidget::slotSelectColor(QColor color)
 {
     m_paint_property.color = color;
-    emit signal_paint_property(m_paint_property);
+    emit signalPaintProperty(m_paint_property);
 }
 
-void PaintPropertyWidget::slot_select_width(int width)
+void PaintPropertyWidget::slotSelectWidth(int width)
 {
     m_paint_property.width = width;
-    emit signal_paint_property(m_paint_property);
+    emit signalPaintProperty(m_paint_property);
 }
 
 void PaintPropertyWidget::initWidgets()

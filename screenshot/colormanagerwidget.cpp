@@ -21,7 +21,7 @@ void ColorManagerWidget::initColorLabel()
     for(int i = 0; i < 10; i ++)
     {
         ColorLabel *label = new ColorLabel(this, m_color_list.at(i));
-        connect(label, SIGNAL(signalSelectColor(QColor)), this, SLOT(slot_select_color(QColor)));
+        connect(label, SIGNAL(signalSelectColor(QColor)), this, SLOT(slotSelectColor(QColor)));
         m_colorlabel_list.append(label);
         layout->addWidget(label);
     }
@@ -108,9 +108,9 @@ ColorManagerWidget::~ColorManagerWidget()
 
 }
 
-void ColorManagerWidget::slot_select_color(QColor color)
+void ColorManagerWidget::slotSelectColor(QColor color)
 {
     ColorLabel *label = dynamic_cast <ColorLabel *> (sender());
     mutexSelection(label);
-    emit signal_select_color(color);
+    emit signalSelectColor(color);
 }

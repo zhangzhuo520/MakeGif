@@ -24,7 +24,9 @@ HEADERS += \
     $$PWD/shapecircle.h \
     $$PWD/shapetext.h \
     $$PWD/textedit.h \
-    $$PWD/abstractpropertywidget.h
+    $$PWD/abstractpropertywidget.h \
+    $$PWD/textpropertywidget.h \
+    $$PWD/textwidget.h
 
 SOURCES += \
     $$PWD/colorlabel.cpp \
@@ -44,7 +46,9 @@ SOURCES += \
     $$PWD/shapecircle.cpp \
     $$PWD/shapetext.cpp \
     $$PWD/textedit.cpp \
-    $$PWD/abstractpropertywidget.cpp
+    $$PWD/abstractpropertywidget.cpp \
+    $$PWD/textpropertywidget.cpp \
+    $$PWD/textwidget.cpp
 
 INCLUDEPATH +=  $$PWD/../app/
 

@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QRect>
 #include <QObject>
+#include <QFont>
 #include "datastruct.h"
 class QEvent;
 class QMouseEvent;
@@ -40,6 +41,9 @@ signals:
 
 
 private:
+    void updateFont();
+
+
     bool m_drawing;
     bool m_is_resize;
     QImage m_image;
@@ -49,6 +53,7 @@ private:
     QRect m_cut_area;
     ScreenShotWidget *m_screen_widget;
     TextEdit *m_text_edit;
+    QFont m_font;
 
 };
 

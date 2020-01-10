@@ -52,5 +52,5 @@ void WidthWidget::slotSelectChange()
        width = 3;
    }
 
-   emit singal_select_width(width);
+   emit signalSelectWidth(width);
 }

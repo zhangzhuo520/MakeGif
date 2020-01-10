@@ -10,7 +10,6 @@ ShapeAlgorithm::~ShapeAlgorithm()
 
 }
 
-
 QRect ShapeAlgorithm::correctRect(const QPoint & start, const QPoint & end)
 {
     int rect_top = start.y() < end.y() ? start.y() : end.y();

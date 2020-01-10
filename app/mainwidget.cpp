@@ -55,7 +55,6 @@ void MainWidgetPrivate::initUi()
     m_recordgif_widget->hide();
 }
 
-
 MainWidget::MainWidget(QWidget *parent):
     QWidget(parent),
     d_ptr(new MainWidgetPrivate(this))

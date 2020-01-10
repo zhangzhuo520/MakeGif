@@ -13,10 +13,10 @@ public:
     ~ColorManagerWidget();
 
 signals:
-    void signal_select_color(QColor);
+    void signalSelectColor(QColor);
 
 public slots:
-    void slot_select_color(QColor);
+    void slotSelectColor(QColor);
 
 private:
     void initColorLabel();
