@@ -125,7 +125,7 @@ void ScreenShotBar::slotShowPropertyWidget()
     {
         pproperty.paint_type = TEXT;
         pproperty.color = Qt::red;
-        pproperty.width = 1;
+        pproperty.width = 9;
         pproperty.line_style = 1;
         pproperty.brush_style = 1;
     }

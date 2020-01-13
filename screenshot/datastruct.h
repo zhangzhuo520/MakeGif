@@ -3,6 +3,7 @@
 #include <QColor>
 #include <QBrush>
 #include <QObject>
+#include <QMap>
 #include <qnamespace.h>
 enum PaintType
 {
@@ -15,8 +16,17 @@ enum PaintType
     NONE
 };
 
+
 typedef struct paintproperty
 {
+    paintproperty(PaintType type):
+        paint_type(type),
+        color(Qt::red),
+        width(1),
+        brush_style(1),
+        line_style(1)
+    {}
+
     paintproperty():
         paint_type(NONE),
         color(Qt::black),
@@ -57,11 +67,20 @@ typedef struct paintproperty
     int line_style;
 }PaintProperty;
 
-class PaintPropertyList : public QList <PaintProperty *>
+class PropertyMap : public QMap <PaintType, PaintProperty>
 {
 public:
-    PaintPropertyList();
-    ~PaintPropertyList();
+    PropertyMap()
+    {
+        insert(ARROW, PaintProperty(ARROW));
+        insert(TEXT, PaintProperty(TEXT));
+        insert(PEN, PaintProperty(PEN));
+        insert(BOX, PaintProperty(BOX));
+        insert(CIRCLE, PaintProperty(CIRCLE));
+        insert(MASK, PaintProperty(MASK));
+    }
+
+    ~PropertyMap(){}
 };
 
 Q_DECLARE_METATYPE(PaintProperty)

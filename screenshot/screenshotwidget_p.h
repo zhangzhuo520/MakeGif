@@ -68,6 +68,7 @@ public:
     BorderType m_border_type;
     MarkWidget *m_mark_widget = nullptr;
     PaintProperty m_paint_property;
+    PropertyMap m_property_map;
     QSharedPointer <QPixmap> m_screen_pixmap = nullptr;
 };
 

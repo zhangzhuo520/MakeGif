@@ -208,19 +208,20 @@ void ScreenShotWidget::slotScreenbarProperty(PaintProperty property)
     d->m_paint_property = property;
     if(property.paint_type == TEXT)
     {
-        d->m_text_property_widget->setPaintProperty(property);
+        d->m_text_property_widget->setPaintProperty(d->m_property_map[property.paint_type]);
     }
     else
     {
-        d->m_painter_property_widget->setPaintProperty(property);
+        d->m_painter_property_widget->setPaintProperty(d->m_property_map[property.paint_type]);
     }
-    d->m_mark_widget->setPaintProperty(property);
+
+    d->m_mark_widget->setPaintProperty(d->m_property_map[property.paint_type]);
 }
 
 void ScreenShotWidget::slotPaintProperty(PaintProperty property)
 {
     Q_D(ScreenShotWidget);
-    d->m_paint_property = property;
+    d->m_property_map[property.paint_type] =  property;
     d->m_mark_widget->setPaintProperty(property);
 }
 

@@ -37,16 +37,20 @@ void ShapeText::mouseDoubleClick(QMouseEvent *)
 
 void ShapeText::mousePressEvent(QMouseEvent *e)
 {
-    if(m_text_edit->isHidden() || m_text_edit->text().isEmpty())
+    if(e->button() == Qt::LeftButton && m_algorithm.pointInRect(m_paint_range, e->pos()))
     {
-        m_text_edit->show();
-        m_text_edit->move(e->pos());
-    }
-    else
-    {
-        m_text_pos.setX(m_text_edit->pos().x());
-        m_text_pos.setY(m_text_edit->pos().y());
-        m_text_edit->hide();
+        if(m_text_edit->isHidden() || m_text_edit->text().isEmpty())
+        {
+
+            m_text_edit->show();
+            m_text_edit->move(e->pos());
+        }
+        else
+        {
+            m_text_pos.setX(m_text_edit->pos().x() + 3);
+            m_text_pos.setY(m_text_edit->pos().y() + m_text_edit->height() - 8);
+            m_text_edit->hide();
+        }
     }
 }
 
