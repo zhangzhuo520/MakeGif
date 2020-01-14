@@ -12,6 +12,7 @@
 #include "shapearrow.h"
 #include "shapeline.h"
 #include "shapecircle.h"
+#include "shapepen.h"
 #include "shapetext.h"
 #include "screenshotwidget.h"
 #include "textedit.h"
@@ -110,7 +111,7 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
         m_shape = new ShapeRect;
         break;
     case PEN:
-        m_shape = new ShapeLine;
+        m_shape = new ShapePen;
         break;
     case ARROW:
         m_shape = new ShapeArrow;
@@ -230,7 +231,7 @@ bool MarkWidget::touchShape(const QPoint & pos)
         bottom = bottom > rect.bottom() ? bottom : rect.bottom();
     }
     QRect temp_rect(QPoint(left, top), QPoint(right, bottom));
-    return pointInRect(temp_rect, pos);
+    return  pointInRect(temp_rect, pos);
 }
 
 bool MarkWidget::pointInRect(const QRect &rect, const QPoint &pos)

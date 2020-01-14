@@ -39,10 +39,8 @@ public:
 signals:
     void signalUpdate();
 
-
 private:
     void updateFont();
-
 
     bool m_drawing;
     bool m_is_resize;

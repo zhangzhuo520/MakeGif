@@ -26,7 +26,8 @@ HEADERS += \
     $$PWD/textedit.h \
     $$PWD/abstractpropertywidget.h \
     $$PWD/textpropertywidget.h \
-    $$PWD/textwidget.h
+    $$PWD/textwidget.h \
+    $$PWD/shapepen.h
 
 SOURCES += \
     $$PWD/colorlabel.cpp \
@@ -48,7 +49,8 @@ SOURCES += \
     $$PWD/textedit.cpp \
     $$PWD/abstractpropertywidget.cpp \
     $$PWD/textpropertywidget.cpp \
-    $$PWD/textwidget.cpp
+    $$PWD/textwidget.cpp \
+    $$PWD/shapepen.cpp
 
 INCLUDEPATH +=  $$PWD/../app/
 

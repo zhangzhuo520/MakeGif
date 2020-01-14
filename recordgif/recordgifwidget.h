@@ -22,8 +22,6 @@ public slots:
     void slotFpsChange(const QString&);
     void slotFrameCount(int);
 
-//    void slot
-
 protected:
     void resizeEvent(QResizeEvent *);
     void paintEvent(QPaintEvent *);

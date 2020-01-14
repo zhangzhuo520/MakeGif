@@ -110,7 +110,7 @@ ColorManagerWidget::~ColorManagerWidget()
 
 void ColorManagerWidget::slotSelectColor(QColor color)
 {
-    ColorLabel *label = dynamic_cast <ColorLabel *> (sender());
+    ColorLabel *label = qobject_cast <ColorLabel *> (sender());
     mutexSelection(label);
     emit signalSelectColor(color);
 }

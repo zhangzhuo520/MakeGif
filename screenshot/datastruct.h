@@ -66,6 +66,7 @@ typedef struct paintproperty
     int brush_style;
     int line_style;
 }PaintProperty;
+Q_DECLARE_METATYPE(PaintProperty)
 
 class PropertyMap : public QMap <PaintType, PaintProperty>
 {
@@ -83,6 +84,6 @@ public:
     ~PropertyMap(){}
 };
 
-Q_DECLARE_METATYPE(PaintProperty)
+
 
 #endif // DATASTRUCT_H

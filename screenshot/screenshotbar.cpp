@@ -55,6 +55,7 @@ void ScreenShotBar::initUi()
     connect(m_arrow_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_circle_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_text_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
+    connect(m_pen_btn, SIGNAL(pressed()), this, SLOT(slotShowPropertyWidget()));
     connect(m_ok_btn, SIGNAL(pressed()), this, SIGNAL(signalOkBtnclick()));
     connect(m_cancel_btn, SIGNAL(pressed()), this, SIGNAL(signalCancelBtnclick()));
 }
