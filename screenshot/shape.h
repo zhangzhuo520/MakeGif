@@ -3,9 +3,13 @@
 #include <QList>
 #include <QColor>
 #include <QBrush>
+#include "abstractshape.h"
 #include "algorithm.h"
 class QPainter;
 class QMouseEvent;
+class AbstrcatShape;
+
+//template <class BaseType = AbstrcatShape>
 class Shape
 {
 public:
@@ -17,6 +21,7 @@ public:
         CIRCLE,
         RECT,
         TEXT,
+        MOSAIC,
         NONE
     };
 
@@ -36,13 +41,15 @@ public:
 
    virtual ShapeType getType() {return NONE;}
 
-   QColor m_shap_color;
-   QBrush m_shape_brush;
-   QRect m_paint_range;
-   ShapeAlgorithm m_algorithm;
+protected:
+    QColor m_shap_color;
+    QBrush m_shape_brush;
+    QRect m_paint_range;
+    ShapeAlgorithm m_algorithm;
 private:
-   static  QList <Shape *> m_shape_list;
-
+    static  QList <Shape *> m_shape_list;
 };
+
+//typedef  Shape<AbstractShape>   Shape;
 
 #endif // SHAPE_H

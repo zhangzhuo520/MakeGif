@@ -21,6 +21,7 @@ protected:
 private:
     QPoint m_start_pos;
     QPoint m_end_pos;
+    QVector <QPoint> m_point_list;
     bool m_is_pressed;
 };
 

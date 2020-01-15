@@ -7,6 +7,8 @@ const QString STYLE_PATH = ":/images/qss/style.qss";
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setOrganizationDomain("KUKU");
+    a.setOrganizationName("Sunrise");
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     tools::AppInit *initApp = new  tools::AppInit;

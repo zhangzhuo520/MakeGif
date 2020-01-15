@@ -13,6 +13,7 @@ public:
     AbstractPropertyWidget(QWidget *parent = nullptr);
     ~AbstractPropertyWidget();
     virtual void setPaintProperty(const PaintProperty&);
+
 protected:
     void paintEvent(QPaintEvent *);
 

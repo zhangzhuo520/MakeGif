@@ -92,7 +92,7 @@ void ScreenShotBar::slotShowPropertyWidget()
     PaintProperty pproperty;
     if(btn->objectName()  == "MaskBtn")
     {
-        pproperty.paint_type = MASK;
+        pproperty.paint_type = MOSAIC;
         pproperty.color = Qt::red;
         pproperty.width = 1;
         pproperty.line_style = 1;

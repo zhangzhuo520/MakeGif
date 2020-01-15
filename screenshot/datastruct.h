@@ -12,7 +12,7 @@ enum PaintType
     PEN,
     BOX,
     CIRCLE,
-    MASK,
+    MOSAIC,
     NONE
 };
 
@@ -22,6 +22,7 @@ typedef struct paintproperty
     paintproperty(PaintType type):
         paint_type(type),
         color(Qt::red),
+        brush_color(Qt::black),
         width(1),
         brush_style(1),
         line_style(1)
@@ -30,6 +31,7 @@ typedef struct paintproperty
     paintproperty():
         paint_type(NONE),
         color(Qt::black),
+        brush_color(Qt::black),
         width(1),
         brush_style(0),
         line_style(0)
@@ -42,13 +44,18 @@ typedef struct paintproperty
         paint_type = property.paint_type;
         line_style = property.line_style;
         brush_style = property.brush_style;
+        brush_color = property.brush_color;
 
     }
 
-    paintproperty(const PaintType& t, const QColor& c,  int w):
+    paintproperty(const PaintType& t, const QColor& c,  int w,  int bs, int ls):
         paint_type(t),
         color(c),
-        width(w){}
+        brush_color(c),
+        width(w),
+        brush_style(bs),
+        line_style(ls)
+    {}
 
     paintproperty& operator=(const paintproperty& p)
     {
@@ -62,6 +69,7 @@ typedef struct paintproperty
 
     PaintType paint_type;
     QColor color;
+    QColor brush_color;
     int width;
     int brush_style;
     int line_style;
@@ -76,9 +84,9 @@ public:
         insert(ARROW, PaintProperty(ARROW));
         insert(TEXT, PaintProperty(TEXT));
         insert(PEN, PaintProperty(PEN));
-        insert(BOX, PaintProperty(BOX));
-        insert(CIRCLE, PaintProperty(CIRCLE));
-        insert(MASK, PaintProperty(MASK));
+        insert(BOX, PaintProperty(BOX, Qt::red, 1, 0, 1));
+        insert(CIRCLE, PaintProperty(CIRCLE, Qt::red, 1, 0, 1));
+        insert(MOSAIC, PaintProperty(MOSAIC));
     }
 
     ~PropertyMap(){}

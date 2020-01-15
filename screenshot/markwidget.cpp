@@ -14,6 +14,7 @@
 #include "shapecircle.h"
 #include "shapepen.h"
 #include "shapetext.h"
+#include "shapemosaic.h"
 #include "screenshotwidget.h"
 #include "textedit.h"
 MarkWidget::MarkWidget(QWidget *widget, QSharedPointer <QPixmap> screen):
@@ -124,11 +125,17 @@ void MarkWidget::mousePressEvent(QMouseEvent *event)
         m_shape = new ShapeText(m_text_edit, m_font);
         break;
     }
+    case MOSAIC:
+    {
+        m_shape = new shapeMosaic;
+        break;
+    }
     default:
         break;
     }
     m_drawing = true;
     m_shape->setPaintRange(m_cut_area);
+
     m_shape->mousePressEvent(event);
 }
 
@@ -152,8 +159,16 @@ void MarkWidget::paintEvent(QPaintEvent *)
 {
     if(!m_drawing) return;
     QPainter painter;
-    m_image = m_screen_image;
-    painter.begin(&m_image);
+    if(m_paint_property.paint_type == PEN ||
+            m_paint_property.paint_type == MOSAIC )
+    {
+        painter.begin(&m_image);
+    }
+    else
+    {
+        m_image = m_screen_image;
+        painter.begin(&m_image);
+    }
     painter.setRenderHint(QPainter::Antialiasing, true);
     QPen pen;
     pen.setColor(m_paint_property.color);

@@ -27,7 +27,10 @@ HEADERS += \
     $$PWD/abstractpropertywidget.h \
     $$PWD/textpropertywidget.h \
     $$PWD/textwidget.h \
-    $$PWD/shapepen.h
+    $$PWD/shapepen.h \
+    $$PWD/shapemosaic.h \
+    $$PWD/abstractshape.h \
+    $$PWD/abstractshape_p.h
 
 SOURCES += \
     $$PWD/colorlabel.cpp \
@@ -50,7 +53,9 @@ SOURCES += \
     $$PWD/abstractpropertywidget.cpp \
     $$PWD/textpropertywidget.cpp \
     $$PWD/textwidget.cpp \
-    $$PWD/shapepen.cpp
+    $$PWD/shapepen.cpp \
+    $$PWD/shapemosaic.cpp \
+    $$PWD/abstractshape.cpp
 
 INCLUDEPATH +=  $$PWD/../app/
 
